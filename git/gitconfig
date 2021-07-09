@@ -1,0 +1,8 @@
+[alias]
+    co = checkout
+    st = status -s
+    lg = log --pretty=oneline --graph --abbrev-commit --all
+[user]
+    name = Andrea Nodari
+[init]
+    defaultBranch = main

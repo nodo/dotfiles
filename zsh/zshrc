@@ -1,0 +1,32 @@
+export ZSH="/Users/anodari/.oh-my-zsh"
+
+ZSH_THEME="nodo"
+
+source $ZSH/oh-my-zsh.sh
+
+export LC_ALL="en_US.UTF-8"
+export LANG="en_US"
+
+# GNU Command Line Tools
+BREW_PREFIX=$(brew --prefix)
+export PATH="$BREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH"
+export PATH="$BREW_PREFIX/opt/grep/libexec/gnubin:$PATH"
+export PATH="$BREW_PREFIX/opt/curl/bin:$PATH"
+export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
+
+# Go tools
+export PATH="$HOME/go/bin:$PATH"
+
+# Custom
+export PATH="$HOME/bin:$PATH"
+
+export EDITOR='nvim'
+export GIT_OPEN='nvim'
+
+# Alias and helpers
+alias k="kubectl"
+alias ls="ls --color=auto"
+alias grep="grep --color=auto"
+alias cat=bat
+
+complete -F __start_kubectl k
