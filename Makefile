@@ -24,7 +24,7 @@ vim-plug:
 
 .PHONY: nvim-plugins
 nvim-plugins:
-	which nvim # nvim +PlugInstall +qa
+	/home/linuxbrew/.linuxbrew/bin/nvim +PlugInstall +qa
 
 .PHONY: nvim
 nvim: vim-plug nvim-plugins

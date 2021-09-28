@@ -4,6 +4,7 @@ export PATH
 
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
-alias dotfiles='cd /workspaces/.codespaces/.persistedshare/dotfiles'
+DOTFILES=/workspaces/.codespaces/.persistedshare/dotfiles
+alias dotfiles='cd $DOTFILES'
 
 [ -s "$HOME/.bashrc" ] && source "$HOME/.bashrc"
