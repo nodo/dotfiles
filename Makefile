@@ -26,7 +26,7 @@ vim-plug:
 nvim: vim-plug
 	mkdir -p ~/.config/nvim
 	ln -fs $(PWD)/nvim/init.vim ~/.config/nvim/init.vim
-	nvim +PlugInstall +qa
+	/home/linuxbrew/.linuxbrew/bin/nvim +PlugInstall +qa
 
 .PHONY: $(APT_PACKAGES)
 $(APT_PACKAGES):
