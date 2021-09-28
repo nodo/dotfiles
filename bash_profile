@@ -1,8 +1,7 @@
 PATH=/home/linuxbrew/.linuxbrew/bin/:$PATH
 PATH=$HOME/bin:$PATH
+export PATH
 
-RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-
-export PATH RIPGREP_CONFIG_PATH
+export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 [ -s "$HOME/.bashrc" ] && source "$HOME/.bashrc"
