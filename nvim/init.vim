@@ -10,8 +10,8 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'rodjek/vim-puppet'
 Plug 'tpope/vim-commentary'
+Plug 'kabouzeid/nvim-lspinstall'
 
 call plug#end()
 
@@ -22,6 +22,11 @@ set background=dark
 let g:gruvbox_contrast_dark = 'medium'
 
 let mapleader = " "
+
+" LSP Installer
+silent! lua << EOF
+  require('lspinstall').setup()
+EOF
 
 " === LSP
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
@@ -76,13 +81,6 @@ EOF
 " https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#yamlls
 silent! lua << EOF
 require('lspconfig').yamlls.setup{}
-EOF
-
-" https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#html
-silent! lua << EOF
-require('lspconfig').html.setup{
-  cmd = { "vscode-html-language-server", "--stdio" }
-}
 EOF
 
 " https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#bashls
