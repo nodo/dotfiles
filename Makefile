@@ -1,6 +1,7 @@
 DOTFILES := bash_profile ripgreprc
 BREWFILE := Brewfile
 HOMEBREW_LOCATION := /home/linuxbrew/.linuxbrew/bin/
+APT_PACKAGES := build-essential
 
 $(HOMEBREW_LOCATION)/brew:
 	curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o /tmp/install_homebrew.sh
@@ -23,11 +24,15 @@ vim-plug:
 
 .PHONY: nvim-plugins
 nvim-plugins:
-	nvim +PlugInstall +qa
+	which nvim # nvim +PlugInstall +qa
 
 .PHONY: nvim
-nvim: vim-plug nvim-plugins
+nvim: vim-plug
 	mkdir -p ~/.config/nvim && ln -fs $(PWD)/nvim/init.vim ~/.config/nvim/init.vim
 
+.PHONY: $(APT_PACKAGES)
+$(APT_PACKAGES):
+	sudo apt-get install -y $@
+
 .PHONY: $(DOTFILES)
-install: $(DOTFILES) brew-bundle nvim
+install: $(DOTFILES) $(APT_PACKAGES) brew-bundle nvim
