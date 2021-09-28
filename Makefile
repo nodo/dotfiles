@@ -27,7 +27,7 @@ nvim-plugins:
 	which nvim # nvim +PlugInstall +qa
 
 .PHONY: nvim
-nvim: vim-plug
+nvim: vim-plug nvim-plugins
 	mkdir -p ~/.config/nvim && ln -fs $(PWD)/nvim/init.vim ~/.config/nvim/init.vim
 
 .PHONY: $(APT_PACKAGES)

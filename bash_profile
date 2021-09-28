@@ -1,4 +1,4 @@
-PATH=/home/linuxbrew/.linuxbrew/bin/:$PATH
+PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 PATH=$HOME/bin:$PATH
 export PATH
 
