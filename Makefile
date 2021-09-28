@@ -24,11 +24,12 @@ vim-plug:
 
 .PHONY: nvim-plugins
 nvim-plugins:
-	/home/linuxbrew/.linuxbrew/bin/nvim +PlugInstall +qa
+	nvim +PlugInstall +qa
 
 .PHONY: nvim
 nvim: vim-plug nvim-plugins
-	mkdir -p ~/.config/nvim && ln -fs $(PWD)/nvim/init.vim ~/.config/nvim/init.vim
+	mkdir -p ~/.config/nvim
+	ln -fs $(PWD)/nvim/init.vim ~/.config/nvim/init.vim
 
 .PHONY: $(APT_PACKAGES)
 $(APT_PACKAGES):
