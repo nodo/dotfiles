@@ -22,14 +22,11 @@ $(DOTFILES):
 vim-plug:
 	curl --silent -fLo ${HOME}/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-.PHONY: nvim-plugins
-nvim-plugins:
-	nvim +PlugInstall +qa
-
 .PHONY: nvim
-nvim: vim-plug nvim-plugins
+nvim: vim-plug
 	mkdir -p ~/.config/nvim
 	ln -fs $(PWD)/nvim/init.vim ~/.config/nvim/init.vim
+	nvim +PlugInstall +qa
 
 .PHONY: $(APT_PACKAGES)
 $(APT_PACKAGES):
