@@ -142,6 +142,10 @@ let g:nvim_tree_ignore = [ '.git' ]
 let g:nvim_tree_gitignore = 1
 let g:nvim_tree_disable_default_keybindings = 1
 
+silent! lua << EOF
+require('nvim-tree').setup {}
+EOF
+
 silent! lua <<EOF
     local tree_cb = require('nvim-tree.config').nvim_tree_callback
     vim.g.nvim_tree_bindings = {
