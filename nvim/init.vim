@@ -1,33 +1,23 @@
 call plug#begin('~/.nvim/plugged')
 
 Plug 'gruvbox-community/gruvbox'
-
 Plug 'nvim-treesitter/nvim-treesitter'
-
 Plug 'neovim/nvim-lspconfig'
-
 Plug 'nvim-lua/plenary.nvim'
-
 Plug 'lewis6991/gitsigns.nvim'
-
 Plug 'kyazdani42/nvim-web-devicons'
-
 Plug 'nvim-lua/popup.nvim'
-
 Plug 'nvim-telescope/telescope.nvim'
-
 Plug 'kyazdani42/nvim-tree.lua'
-
 Plug 'ntpeters/vim-better-whitespace'
-
 Plug 'rodjek/vim-puppet'
-
 Plug 'tpope/vim-commentary'
 
 call plug#end()
 
 " === colorscheme config
-colorscheme gruvbox
+" silent! is to allow the installation of all plugings using `nvim +PlugInstall +qa`
+silent! colorscheme gruvbox
 set background=dark
 let g:gruvbox_contrast_dark = 'medium'
 
@@ -43,7 +33,7 @@ nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <silent> ] <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent> [ <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 
-lua << EOF
+silent! lua << EOF
   -- Taken from https://github.com/golang/tools/blob/master/gopls/doc/vim.md#imports
   function goimports(timeout_ms)
     local context = { source = { organizeImports = true } }
@@ -79,29 +69,29 @@ EOF
 autocmd BufWritePre *.go lua goimports(1000)
 autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 100)
 
-lua << EOF
+silent! lua << EOF
 require('lspconfig').gopls.setup{}
 EOF
 
 " https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#yamlls
-lua << EOF
+silent! lua << EOF
 require('lspconfig').yamlls.setup{}
 EOF
 
 " https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#html
-lua << EOF
+silent! lua << EOF
 require('lspconfig').html.setup{
   cmd = { "vscode-html-language-server", "--stdio" }
 }
 EOF
 
 " https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#bashls
-lua << EOF
+silent! lua << EOF
 require('lspconfig').bashls.setup{}
 EOF
 
 " === tree-sitter
-lua << EOF
+silent! lua << EOF
 require('nvim-treesitter.configs').setup {
   ensure_installed = "all",
   ignore_install = { "haskell" },
@@ -118,12 +108,12 @@ EOF
 let g:nvcode_termcolors=256
 
 " === gitsigns
-lua << EOF
+silent! lua << EOF
 require('gitsigns').setup {}
 EOF
 
 " === telescope
-lua << EOF
+silent! lua << EOF
 local actions = require('telescope.actions')
 require('telescope').setup {
   defaults = {
@@ -152,7 +142,7 @@ let g:nvim_tree_ignore = [ '.git' ]
 let g:nvim_tree_gitignore = 1
 let g:nvim_tree_disable_default_keybindings = 1
 
-lua <<EOF
+silent! lua <<EOF
     local tree_cb = require('nvim-tree.config').nvim_tree_callback
     vim.g.nvim_tree_bindings = {
       { key = "<CR>",  cb = tree_cb("edit") },
