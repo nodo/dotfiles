@@ -1,4 +1,4 @@
-DOTFILES := bash_profile ripgreprc
+DOTFILES := bash_profile ripgreprc tmux.conf
 BREWFILE := Brewfile
 HOMEBREW_LOCATION := /home/linuxbrew/.linuxbrew/bin/
 APT_PACKAGES := build-essential
