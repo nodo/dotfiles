@@ -12,6 +12,7 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-commentary'
 Plug 'kabouzeid/nvim-lspinstall'
+Plug 'folke/trouble.nvim'
 
 call plug#end()
 
@@ -170,6 +171,27 @@ EOF
 
 nnoremap \  :NvimTreeToggle<cr>
 nnoremap \| :NvimTreeFindFile<cr>
+
+silent! lua << EOF
+  require("trouble").setup {}
+EOF
+
+nnoremap <leader>xx <cmd>TroubleToggle<cr>
+
+silent! lua << EOF
+  function setup_lsp_diags()
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+      vim.lsp.diagnostic.on_publish_diagnostics,
+      {
+        virtual_text = false,
+        signs = true,
+        update_in_insert = false,
+        underline = true,
+      }
+    )
+  end
+  setup_lsp_diags()
+EOF
 
 " === Mappings
 noremap <c-g> <esc>
