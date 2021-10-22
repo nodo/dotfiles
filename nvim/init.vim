@@ -5,14 +5,15 @@ Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'lewis6991/gitsigns.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'kyazdani42/nvim-tree.lua'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
 Plug 'kabouzeid/nvim-lspinstall'
 Plug 'folke/trouble.nvim'
+Plug 'ryanoasis/vim-devicons'
+Plug 'preservim/nerdtree'
 
 call plug#end()
 
@@ -134,49 +135,15 @@ nnoremap <c-p> <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 
-
-" === nvimtree
-" https://github.com/kyazdani42/nvim-tree.lua
-let g:nvim_tree_ignore = [ '.git' ]
-let g:nvim_tree_gitignore = 1
-let g:nvim_tree_disable_default_keybindings = 1
-
-silent! lua << EOF
-require('nvim-tree').setup {}
-EOF
-
-silent! lua <<EOF
-    local tree_cb = require('nvim-tree.config').nvim_tree_callback
-    vim.g.nvim_tree_bindings = {
-      { key = "<CR>",  cb = tree_cb("edit") },
-      { key = "<C-v>", cb = tree_cb("vsplit") },
-      { key = "<C-x>", cb = tree_cb("split") },
-      { key = "P",     cb = tree_cb("parent_node") },
-      { key = "<",     cb = tree_cb("prev_sibling") },
-      { key = ">",     cb = tree_cb("next_sibling") },
-      { key = "<Tab>", cb = tree_cb("preview") },
-      { key = "I",     cb = tree_cb("toggle_ignored") },
-      { key = "H",     cb = tree_cb("toggle_dotfiles") },
-      { key = "R",     cb = tree_cb("refresh") },
-      { key = "a",     cb = tree_cb("create") },
-      { key = "d",     cb = tree_cb("remove") },
-      { key = "r",     cb = tree_cb("rename") },
-      { key = "<C-r>", cb = tree_cb("full_rename") },
-      { key = "y",     cb = tree_cb("copy_name") },
-      { key = "Y",     cb = tree_cb("copy_absolute_path") },
-      { key = "q",     cb = tree_cb("close") },
-      { key = "g?",    cb = tree_cb("toggle_help") },
-    }
-EOF
-
-nnoremap \  :NvimTreeToggle<cr>
-nnoremap \| :NvimTreeFindFile<cr>
+nnoremap \  :NERDTreeToggle<cr>
+nnoremap \| :NERDTreeFind<cr>
 
 silent! lua << EOF
   require("trouble").setup {}
 EOF
 
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
+nnoremap <leader>xd <cmd>TroubleToggle lsp_document_diagnostics<cr>
 
 silent! lua << EOF
   function setup_lsp_diags()
