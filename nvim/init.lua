@@ -22,6 +22,8 @@ vim.o.updatetime = 250
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.clipboard = vim.o.clipboard .. 'unnamedplus'
+vim.o.inccommand = 'nosplit'
+vim.o.hidden = true
 
 -- folding options using tree-sitter
 vim.o.foldmethod = 'expr'
