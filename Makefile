@@ -16,17 +16,12 @@ brew-bundle: homebrew
 
 .PHONY: $(DOTFILES)
 $(DOTFILES):
-	ln -fs $(PWD)/$@ ~/.$@
-
-.PHONY: vim-plug
-vim-plug:
-	curl --silent -fLo ${HOME}/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	ln -fs $(PWD)/$@ ${HOME}/.$@
 
 .PHONY: nvim
-nvim: vim-plug
-	mkdir -p ~/.config/nvim
-	ln -fs $(PWD)/nvim/init.vim ~/.config/nvim/init.vim
-	/home/linuxbrew/.linuxbrew/bin/nvim +PlugInstall +qa
+nvim:
+	ln -fs $(PWD)/nvim ${HOME}/.config/nvim
+	nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 .PHONY: $(APT_PACKAGES)
 $(APT_PACKAGES):
