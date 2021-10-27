@@ -1,6 +1,6 @@
-require 'plugins'
-require 'lsp'
-require 'treesitter'
+require 'nodo/plugins'
+require 'nodo/lsp'
+require 'nodo/treesitter'
 
 -- colortheme
 require('onedark').setup()

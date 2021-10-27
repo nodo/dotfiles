@@ -1,6 +1,6 @@
 brew "bat"
 brew "fd"
-brew "neovim", args: ["HEAD"]
+brew "neovim"
 brew "oras"
 brew "ripgrep"
 brew "tmux"

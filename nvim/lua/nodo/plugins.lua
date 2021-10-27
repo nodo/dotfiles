@@ -1,8 +1,3 @@
-local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  packer_bootstrap = vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-end
-
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
@@ -29,7 +24,6 @@ return require('packer').startup(function(use)
       require('lualine').setup()
     end
   }
-
 
   use {
      'nvim-treesitter/nvim-treesitter',
@@ -66,10 +60,4 @@ return require('packer').startup(function(use)
       }
     end
   }
-
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if packer_bootstrap then
-    require('packer').sync()
-  end
 end)
