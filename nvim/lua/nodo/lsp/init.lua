@@ -28,11 +28,17 @@ lsp_installer.on_server_ready(function(server)
     vim.cmd [[ do User LspAttachBuffers ]]
 end)
 
-local signs = { Error = "✖", Warn = " ", Hint = " ", Info = "ℹ" }
-
-for type, icon in pairs(signs) do
-  local hl = "DiagnosticSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+local signs = {
+  { prefix = "DiagnosticSign", values = { Error = "✖", Warn = " ", Hint = " ", Info = "ℹ" } },
+  { prefix = "LspDiagnosticsSign", values = { Error = "✖", Warning = " ", Hint = " ", Information = "ℹ" } },
+}
+for _, data in ipairs(signs) do
+  local prefix = data['prefix']
+  local values = data['values']
+  for sign_type, icon in pairs(values) do
+    local hl = prefix .. sign_type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+  end
 end
 
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
