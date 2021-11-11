@@ -1,4 +1,4 @@
-DOTFILES := bash_profile ripgreprc tmux.conf
+DOTFILES := bash_profile ripgreprc tmux.conf gitconfig
 BREWFILE := Brewfile
 APT_PACKAGES := build-essential
 

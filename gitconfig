@@ -1,0 +1,7 @@
+[user]
+        name = Andrea Nodari
+        email = nodo@github.com
+[alias]
+        co = checkout
+[init]
+        defaultBranch = main
