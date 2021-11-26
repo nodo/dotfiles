@@ -56,6 +56,9 @@ vim.g.nvim_tree_special_files = {}
 vim.api.nvim_set_keymap('n', '<c-p>', ':Telescope find_files<CR>', opts)
 vim.api.nvim_set_keymap('n', '<c-g>', ':Telescope live_grep<CR>', opts)
 
+-- Language specific config
+vim.cmd [[ autocmd Filetype go setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4 ]]
+
 -- Other useful mappings available by default
 -- <Leader>hb : toggle blame on the current line (via GitSigns)
 
