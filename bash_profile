@@ -7,6 +7,8 @@ export EDITOR=nvim
 
 DOTFILES=/workspaces/.codespaces/.persistedshare/dotfiles
 alias dotfiles='cd $DOTFILES'
+
 alias vim=nvim
+alias k=kubectl
 
 [ -s "$HOME/.bashrc" ] && source "$HOME/.bashrc"
