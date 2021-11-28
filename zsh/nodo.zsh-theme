@@ -15,13 +15,7 @@ caret() {
   echo "%{${fg_bold[blue]}%}»%{${reset_color}%}"
 }
 
-# current time, only hours and minutes
-current_time() {
-  echo "%T"
-}
-
 PROMPT='$(user) $(two_blue_dots) $(directory) $(git_prompt_info)$(caret) '
-RPROMPT='$(current_time)'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}‹"
 ZSH_THEME_GIT_PROMPT_SUFFIX="›%{$reset_color%} "
