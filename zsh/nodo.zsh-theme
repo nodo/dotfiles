@@ -1,6 +1,18 @@
+short_machine_name() {
+  echo "%m"
+}
+
+two_blue_dots() {
+  echo "%{${fg_bold[blue]}%}::%{$reset_color%}"
+}
+
 # current directory
 directory() {
-  echo "%{${fg[green]}%}%2~%{$reset_color%}"
+  echo "%{${fg[green]}%}%1~%{$reset_color%}"
+}
+
+caret() {
+  echo "%{${fg_bold[blue]}%}»%{${reset_color}%}"
 }
 
 # current time, only hours and minutes
@@ -8,12 +20,7 @@ current_time() {
   echo "%T"
 }
 
-if [ $UID -eq 0 ]; then CARETCOLOR="red"; else CARETCOLOR="blue"; fi
-caret() {
-  echo "%{${fg_bold[$CARETCOLOR]}%}»%{${reset_color}%}"
-}
-
-PROMPT='$(directory) $(git_prompt_info)$(caret) '
+PROMPT='$(short_machine_name) $(two_blue_dots) $(directory) $(git_prompt_info)$(caret) '
 RPROMPT='$(current_time)'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}‹"
