@@ -4,6 +4,9 @@ ZSH_THEME="mrtazz"
 
 source $ZSH/oh-my-zsh.sh
 
+# Needed for codespaces
+export SHELL=/bin/zsh
+
 PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 PATH=$HOME/bin:$PATH
 export PATH
