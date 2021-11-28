@@ -1,6 +1,6 @@
 ## Variables
 
-DOTFILES := bash_profile ripgreprc tmux.conf gitconfig zshrc
+DOTFILES := bash_profile ripgreprc tmux.conf gitconfig
 BREWFILE := Brewfile
 
 OS := $(shell uname -s)
@@ -40,6 +40,8 @@ ${HOME}/.oh-my-zsh:
 
 .PHONY: zsh
 zsh: $(HOME)/.oh-my-zsh
+	ln -fs $(PWD)/zsh/zshrc ${HOME}/.zshrc
+	ln -fs $(PWD)/zsh/nodo.zsh-theme ${HOME}/.oh-my-zsh/custom/themes/nodo.zsh-theme
 
 # Install packer.nvim
 ${HOME}/.local/share/nvim/site/pack/packer/start/packer.nvim:
