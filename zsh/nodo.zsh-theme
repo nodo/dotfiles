@@ -1,5 +1,5 @@
-short_machine_name() {
-  echo "%m"
+user() {
+  echo "%n"
 }
 
 two_blue_dots() {
@@ -20,7 +20,7 @@ current_time() {
   echo "%T"
 }
 
-PROMPT='$(short_machine_name) $(two_blue_dots) $(directory) $(git_prompt_info)$(caret) '
+PROMPT='$(user) $(two_blue_dots) $(directory) $(git_prompt_info)$(caret) '
 RPROMPT='$(current_time)'
 
 ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg[yellow]%}‹"
