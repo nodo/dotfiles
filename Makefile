@@ -34,6 +34,13 @@ brew-bundle: homebrew
 $(DOTFILES):
 	ln -fs $(PWD)/$@ ${HOME}/.$@
 
+# oh-my-zsh
+${HOME}/.oh-my-zsh:
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)
+
+.PHONY: zsh
+zsh: $(HOME)/.oh-my-zsh
+
 # Install packer.nvim
 ${HOME}/.local/share/nvim/site/pack/packer/start/packer.nvim:
 	git clone --depth 1 https://github.com/wbthomason/packer.nvim $@
@@ -50,4 +57,4 @@ codespaces:
 	./script/setup-codespaces
 
 .PHONY: $(DOTFILES)
-install: $(DOTFILES) $(APT_PACKAGES) brew-bundle nvim codespaces
+install: $(DOTFILES) $(APT_PACKAGES) brew-bundle nvim codespaces zsh
