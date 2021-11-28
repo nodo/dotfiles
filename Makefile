@@ -1,6 +1,7 @@
-DOTFILES := bash_profile ripgreprc tmux.conf gitconfig
+## Variables
+
+DOTFILES := bash_profile ripgreprc tmux.conf gitconfig zshrc
 BREWFILE := Brewfile
-APT_PACKAGES := build-essential
 
 OS := $(shell uname -s)
 ifeq ($(OS),Darwin)
@@ -15,6 +16,8 @@ NVIM_LOCATION := /opt/homebrew/bin/nvim
 else ifeq ($(OS),Linux)
 NVIM_LOCATION := /home/linuxbrew/.linuxbrew/bin/nvim
 endif
+
+## Targets
 
 $(HOMEBREW_LOCATION)/brew:
 	curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o /tmp/install_homebrew.sh
@@ -42,9 +45,9 @@ nvim: ${HOME}/.local/share/nvim/site/pack/packer/start/packer.nvim
 	rm -rf ${HOME}/.config/nvim/plugin
 	$(NVIM_LOCATION) --headless -u ${HOME}/.config/nvim/lua/nodo/plugins.lua -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
-.PHONY: $(APT_PACKAGES)
-$(APT_PACKAGES):
-	sudo apt-get install -y $@
+.PHONY: codespaces
+codespaces:
+	./script/setup-codespaces
 
 .PHONY: $(DOTFILES)
-install: $(DOTFILES) $(APT_PACKAGES) brew-bundle nvim
+install: $(DOTFILES) $(APT_PACKAGES) brew-bundle nvim codespaces

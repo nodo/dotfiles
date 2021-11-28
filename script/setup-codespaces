@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+# Always want to use ZSH as my default shell (e.g. for SSH)
+if ! grep -q "codespace.*/bin/zsh" /etc/passwd
+then
+  sudo chsh -s /bin/zsh codespace
+fi
+
+# install linuxbrew suggested packages
+sudo apt-get install -y build-essential
