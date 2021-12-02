@@ -1,6 +1,6 @@
 ## Variables
 
-DOTFILES := bash_profile ripgreprc tmux.conf gitconfig
+DOTFILES := ripgreprc tmux.conf gitconfig
 BREWFILE := Brewfile
 
 OS := $(shell uname -s)
