@@ -27,6 +27,7 @@ vim.o.smartcase = true
 vim.o.clipboard = vim.o.clipboard .. 'unnamedplus'
 vim.o.inccommand = 'nosplit'
 vim.o.hidden = true
+vim.o.scrolloff = 8
 
 -- folding options using tree-sitter
 vim.o.foldmethod = 'expr'
