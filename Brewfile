@@ -1,4 +1,3 @@
-brew "bat"
 brew "fd"
 brew "gh", args: ["HEAD"]
 brew "neovim"

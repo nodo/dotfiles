@@ -27,7 +27,6 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 # Alias and helpers
 alias k=kubectl
-alias cat=bat
 alias ls="ls --color=auto"
 alias vim=nvim
 
