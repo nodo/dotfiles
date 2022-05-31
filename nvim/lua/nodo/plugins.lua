@@ -35,6 +35,14 @@ return require('packer').startup(function(use)
 
   use 'williamboman/nvim-lsp-installer'
 
+  -- Lua
+  use {
+    "folke/zen-mode.nvim",
+    config = function()
+      require("zen-mode").setup {}
+    end
+  }
+
   use {
     'lewis6991/gitsigns.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
