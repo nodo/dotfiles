@@ -36,7 +36,9 @@ $(DOTFILES):
 
 # oh-my-zsh
 ${HOME}/.oh-my-zsh:
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)
+	curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -o /tmp/zsh-install.sh
+	chmod +x /tmp/zsh-install.sh
+	/tmp/zsh-install.sh
 
 .PHONY: zsh
 zsh: $(HOME)/.oh-my-zsh
@@ -59,4 +61,4 @@ codespaces:
 	./script/setup-codespaces
 
 .PHONY: $(DOTFILES)
-install: $(DOTFILES) $(APT_PACKAGES) brew-bundle nvim codespaces zsh
+install: $(DOTFILES) brew-bundle nvim codespaces zsh
