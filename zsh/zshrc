@@ -33,9 +33,4 @@ alias vim=nvim
 DOTFILES=/workspaces/.codespaces/.persistedshare/dotfiles
 alias dotfiles='cd $DOTFILES'
 
-export GOPROXY=https://goproxy.githubapp.com/mod,https://proxy.golang.org/,direct
-export GOPRIVATE=
-export GONOPROXY=
-export GONOSUMDB='github.com/github/*'
-
 complete -F __start_kubectl k
