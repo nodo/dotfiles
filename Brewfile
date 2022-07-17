@@ -1,6 +1,5 @@
-brew "fd"
 brew "gh", args: ["HEAD"]
-brew "neovim"
+brew "neovim", args: ["HEAD"]
 brew "oras"
 brew "ripgrep"
 brew "tmux"

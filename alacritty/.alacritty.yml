@@ -1,0 +1,46 @@
+env:
+  TERM: xterm-256color
+
+window:
+  padding:
+    x: 6
+    y: 6
+
+  decorations: buttonless
+  startup_mode: SimpleFullscreen
+
+scrolling:
+  history: 10000
+
+font:
+  normal:
+    family: Hack Nerd Font Mono
+    style: Regular
+  bold:
+    family: Hack Nerd Font Mono
+    style: Bold
+  italic:
+    family: Hack Nerd Font Mono
+    style: Italic
+  bold_italic:
+    family: Hack Nerd Font Mono
+    style: Bold Italid
+  size: 14.0
+
+bell:
+  duration: 0
+
+cursor:
+  style:
+    shape: Beam
+
+shell:
+  program: /bin/zsh
+  args:
+    - --login
+
+working_directory: /Users/nodo
+
+key_bindings:
+  - { key: N, mods: Command, action: CreateNewWindow }
+  - { key: F, mods: Command, action: ToggleSimpleFullscreen }
