@@ -35,7 +35,6 @@ return require('packer').startup(function(use)
 
   use 'williamboman/nvim-lsp-installer'
 
-  -- Lua
   use {
     "folke/zen-mode.nvim",
     config = function()

@@ -20,8 +20,6 @@ local on_attach = function(_, bufnr)
 end
 
 lsp_installer.on_server_ready(function(server)
-    -- if server.name == "gopls" then
-    -- end
     server:setup({
       on_attach = on_attach,
     })
