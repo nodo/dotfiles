@@ -43,4 +43,4 @@ working_directory: /Users/nodo
 
 key_bindings:
   - { key: N, mods: Command, action: CreateNewWindow }
-  - { key: F, mods: Command, action: ToggleSimpleFullscreen }
+  - { key: Comma, mods: Command, action: ToggleSimpleFullscreen }
