@@ -58,10 +58,6 @@ vim.g.nvim_tree_special_files = {}
 vim.api.nvim_set_keymap('n', '<c-p>', ':Telescope find_files<CR>', opts)
 vim.api.nvim_set_keymap('n', '<c-g>', ':Telescope live_grep<CR>', opts)
 
--- Other useful mappings available by default
--- <Leader>hb : toggle blame on the current line (via GitSigns)
-
 -- TODO
--- * auto-formatting / auto-import for gopls
 -- * treesitter mappings
 
