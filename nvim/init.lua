@@ -1,3 +1,4 @@
+require 'nodo/plugins'
 require 'nodo/lsp'
 require 'nodo/treesitter'
 require 'nodo/go'
