@@ -1,4 +1,3 @@
-require 'nodo/plugins'
 require 'nodo/lsp'
 require 'nodo/treesitter'
 require 'nodo/go'
@@ -28,11 +27,7 @@ vim.o.clipboard = vim.o.clipboard .. 'unnamedplus'
 vim.o.inccommand = 'nosplit'
 vim.o.hidden = true
 vim.o.scrolloff = 8
-
--- folding options using tree-sitter
-vim.o.foldmethod = 'expr'
-vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
-vim.o.foldlevelstart = 99 -- start with all folds open
+vim.o.laststatus = 3 -- global statusline
 
 local opts = { noremap=true, silent=true }
 
@@ -52,12 +47,13 @@ vim.api.nvim_set_keymap('n', '<c-l>', '<c-w>l', opts)
 -- NvimTree
 vim.api.nvim_set_keymap('n', '\\', ':NvimTreeToggle<CR>', opts)
 vim.api.nvim_set_keymap('n', '|', ':NvimTreeFindFileToggle<CR>', opts)
-vim.g.nvim_tree_special_files = {}
 
 -- Telescope
 vim.api.nvim_set_keymap('n', '<c-p>', ':Telescope find_files<CR>', opts)
 vim.api.nvim_set_keymap('n', '<c-g>', ':Telescope live_grep<CR>', opts)
 
 -- TODO
--- * treesitter mappings
-
+-- treesitter
+--   - mappings
+--   - folds
+-- try autocomplete
