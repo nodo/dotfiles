@@ -29,6 +29,7 @@ vim.o.inccommand = 'nosplit'
 vim.o.hidden = true
 vim.o.scrolloff = 8
 vim.o.laststatus = 3 -- global statusline
+vim.o.winbar = "%=%m %f"
 
 local opts = { noremap=true, silent=true }
 
