@@ -24,7 +24,7 @@ function go.import(wait_ms)
 end
 
 function go.format()
-  vim.lsp.buf.formatting()
+  vim.lsp.buf.format { async = true }
   go.import(1000)
 end
 
