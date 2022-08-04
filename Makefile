@@ -60,5 +60,5 @@ nvim: ${HOME}/.local/share/nvim/site/pack/packer/start/packer.nvim
 codespaces:
 	./script/setup-codespaces
 
-.PHONY: $(DOTFILES)
+export HOMEBREW_INSTALL_FROM_API=true
 install: $(DOTFILES) brew-bundle nvim codespaces zsh
