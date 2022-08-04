@@ -1,8 +1,8 @@
-brew "gh"
+brew "gh", args: ["HEAD"]
 brew "jq"
 brew "k9s"
 brew "kubectl"
-brew "neovim"
+brew "neovim", args: ["HEAD"]
 brew "oras"
 brew "ripgrep"
 brew "tmux"
