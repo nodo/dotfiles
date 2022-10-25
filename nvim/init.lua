@@ -4,7 +4,8 @@ require 'nodo/treesitter'
 require 'nodo/go'
 
 -- colortheme
-require('onedark').setup()
+vim.o.background = 'dark'
+vim.cmd([[colorscheme gruvbox]])
 
 -- leader
 vim.g.mapleader = ' '
