@@ -79,6 +79,11 @@ _G.packer_plugins = {
     path = "/Users/nodo/.local/share/nvim/site/pack/packer/start/Comment.nvim",
     url = "https://github.com/numToStr/Comment.nvim"
   },
+  ["bufferline.nvim"] = {
+    loaded = true,
+    path = "/Users/nodo/.local/share/nvim/site/pack/packer/start/bufferline.nvim",
+    url = "https://github.com/akinsho/bufferline.nvim"
+  },
   ["gitsigns.nvim"] = {
     loaded = true,
     path = "/Users/nodo/.local/share/nvim/site/pack/packer/start/gitsigns.nvim",

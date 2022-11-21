@@ -47,8 +47,11 @@ return packer.startup(function(use)
   use { "numToStr/Comment.nvim" }
 
   use { "kyazdani42/nvim-web-devicons" }
+
   use { "kyazdani42/nvim-tree.lua" }
-  -- use { "akinsho/bufferline.nvim", commit = "83bf4dc7bff642e145c8b4547aa596803a8b4dc4" }
+
+  use { "akinsho/bufferline.nvim" }
+
   use { "nvim-lualine/lualine.nvim" }
 
   -- use { "ahmedkhalf/project.nvim", commit = "628de7e433dd503e782831fe150bb750e56e55d6" }
