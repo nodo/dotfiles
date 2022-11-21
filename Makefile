@@ -1,6 +1,6 @@
 ## Variables
 
-DOTFILES := ripgreprc tmux.conf gitconfig
+DOTFILES := ripgreprc tmux.conf gitconfig bashrc
 BREWFILE := Brewfile
 
 OS := $(shell uname -s)
@@ -34,17 +34,6 @@ brew-bundle: homebrew
 $(DOTFILES):
 	ln -fs $(PWD)/$@ ${HOME}/.$@
 
-# oh-my-zsh
-${HOME}/.oh-my-zsh:
-	curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -o /tmp/zsh-install.sh
-	chmod +x /tmp/zsh-install.sh
-	/tmp/zsh-install.sh
-
-.PHONY: zsh
-zsh: $(HOME)/.oh-my-zsh
-	ln -fs $(PWD)/zsh/zshrc ${HOME}/.zshrc
-	ln -fs $(PWD)/zsh/nodo.zsh-theme ${HOME}/.oh-my-zsh/custom/themes/nodo.zsh-theme
-
 # Install packer.nvim
 ${HOME}/.local/share/nvim/site/pack/packer/start/packer.nvim:
 	git clone --depth 1 https://github.com/wbthomason/packer.nvim $@
@@ -61,4 +50,4 @@ codespaces:
 	./script/setup-codespaces
 
 .PHONY: $(DOTFILES)
-install: $(DOTFILES) brew-bundle nvim codespaces zsh
+install: $(DOTFILES) brew-bundle nvim codespaces

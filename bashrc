@@ -1,12 +1,4 @@
-export ZSH="$HOME/.oh-my-zsh"
-
-ZSH_THEME="nodo"
-
-source $ZSH/oh-my-zsh.sh
-
-# Needed for codespaces
-export SHELL=/bin/zsh
-
+# Linuxbrew
 PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 PATH=$HOME/bin:$PATH
 export PATH
@@ -22,15 +14,12 @@ export PATH="$HOME/bin:$PATH"
 export EDITOR='nvim'
 export GIT_OPEN='nvim'
 export GITHUB_USER=nodo
-export CGO_ENABLED=0
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
-# Alias and helpers
+# Aliases
 alias k=kubectl
 alias ls="ls --color=auto"
 alias vim=nvim
+alias dotfiles="cd /workspaces/.codespaces/.persistedshare/dotfiles"
 
-DOTFILES=/workspaces/.codespaces/.persistedshare/dotfiles
-alias dotfiles='cd $DOTFILES'
-
-complete -F __start_kubectl k
+eval "$(starship init bash)"
