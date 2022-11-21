@@ -28,6 +28,7 @@ homebrew: $(HOMEBREW_LOCATION)/brew
 
 .PHONY: brew-bundle
 brew-bundle: homebrew
+	export HOMEBREW_INSTALL_FROM_API=true
 	$(HOMEBREW_LOCATION)/brew bundle install --no-lock --file $(BREWFILE)
 
 .PHONY: $(DOTFILES)
