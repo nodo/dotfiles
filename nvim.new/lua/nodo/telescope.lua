@@ -5,8 +5,8 @@ end
 
 -- Keymaps
 require "nodo.keymaps"
-keymap("n", "<C-p>", ":Telescope find_files<CR>")
-keymap("n", "<C-g>", ":Telescope live_grep<CR>")
+Keymap("n", "<C-p>", ":Telescope find_files<CR>")
+Keymap("n", "<C-g>", ":Telescope live_grep<CR>")
 
 local actions = require "telescope.actions"
 

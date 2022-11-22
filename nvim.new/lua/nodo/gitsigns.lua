@@ -5,7 +5,7 @@ end
 
 -- Keymaps
 require "nodo.keymaps"
-keymap("n", "<leader>b", ":Git blame_line<CR>")
+Keymap("n", "<leader>b", ":Git blame_line<CR>")
 
 gitsigns.setup {
   signs = {

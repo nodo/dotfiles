@@ -5,8 +5,8 @@ end
 
 -- Keymaps
 require "nodo.keymaps"
-keymap("n", "\\", ":NvimTreeToggle<CR>")
-keymap("n", "|", ":NvimTreeFindFileToggle<CR>")
+Keymap("n", "\\", ":NvimTreeToggle<CR>")
+Keymap("n", "|", ":NvimTreeFindFileToggle<CR>")
 
 local config_status_ok, nvim_tree_config = pcall(require, "nvim-tree.config")
 if not config_status_ok then
