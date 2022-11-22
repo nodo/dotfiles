@@ -35,6 +35,10 @@ brew-bundle: homebrew
 $(DOTFILES):
 	ln -fs $(PWD)/$@ ${HOME}/.$@
 
+.PHONY: starship
+starship:
+	ln -fs $(PWD)/starship.toml ${HOME}/.config/starship.toml
+
 # Install packer.nvim
 ${HOME}/.local/share/nvim/site/pack/packer/start/packer.nvim:
 	git clone --depth 1 https://github.com/wbthomason/packer.nvim $@
@@ -51,4 +55,4 @@ codespaces:
 	./script/setup-codespaces
 
 .PHONY: $(DOTFILES)
-install: $(DOTFILES) brew-bundle nvim codespaces
+install: $(DOTFILES) starship brew-bundle nvim codespaces
