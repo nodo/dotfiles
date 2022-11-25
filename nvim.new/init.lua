@@ -12,3 +12,10 @@ require "nodo.nvim-tree"
 -- require "nodo.bufferline"
 require "nodo.lualine"
 require "nodo.impatient"
+
+-- zen-mode
+-- copilot
+-- cmp
+-- bufferline
+-- go setup
+-- ruby setup
