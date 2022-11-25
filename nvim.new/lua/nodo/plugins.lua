@@ -56,8 +56,6 @@ return packer.startup(function(use)
 
   use { "lewis6991/impatient.nvim"}
 
-	-- use {"folke/which-key.nvim"}
-
 	-- Colorschemes
   use { "ellisonleao/gruvbox.nvim" }
 
