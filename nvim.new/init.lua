@@ -12,6 +12,7 @@ require "nodo.nvim-tree"
 -- require "nodo.bufferline"
 require "nodo.lualine"
 require "nodo.impatient"
+require "nodo.autocommands"
 
 -- zen-mode
 -- copilot
