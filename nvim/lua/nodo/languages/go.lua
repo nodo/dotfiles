@@ -1,14 +1,7 @@
 local go = {}
 
-function go.setup()
-  vim.bo.shiftwidth = 4
-  vim.bo.tabstop = 4
-  vim.bo.softtabstop = 4
-  vim.bo.expandtab = false
-end
-
 -- From https://github.com/golang/tools/blob/master/gopls/doc/vim.md#neovim-imports
-function go.import(wait_ms)
+local function import(wait_ms)
   local params = vim.lsp.util.make_range_params()
   params.context = {only = {"source.organizeImports"}}
   local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)
@@ -23,20 +16,16 @@ function go.import(wait_ms)
   end
 end
 
-function go.format()
-  vim.lsp.buf.format { async = true }
-  go.import(1000)
+function go.setup()
+  vim.bo.shiftwidth = 4
+  vim.bo.tabstop = 4
+  vim.bo.softtabstop = 4
+  vim.bo.expandtab = false
 end
 
-local go_group = vim.api.nvim_create_augroup("go_group", { clear = true })
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*.go",
-  group = go_group,
-  callback = go.format,
-})
+function go.format()
+  vim.lsp.buf.format { async = true }
+  import(1000)
+end
 
-vim.api.nvim_create_autocmd( "FileType", {
-  pattern = "go",
-  group = go_group,
-  callback = go.setup,
-})
+return go
