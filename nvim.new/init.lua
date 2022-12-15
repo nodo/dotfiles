@@ -14,9 +14,7 @@ require "nodo.lualine"
 require "nodo.impatient"
 require "nodo.autocommands"
 
--- zen-mode
 -- copilot
 -- cmp
 -- bufferline
--- go setup
 -- ruby setup
