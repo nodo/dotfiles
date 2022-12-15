@@ -37,6 +37,7 @@ $(DOTFILES):
 
 .PHONY: starship
 starship:
+	mkdir -p ${HOME}/.config
 	ln -fs $(PWD)/starship.toml ${HOME}/.config/starship.toml
 
 # Install packer.nvim
