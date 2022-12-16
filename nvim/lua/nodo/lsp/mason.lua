@@ -24,17 +24,17 @@ mason.setup {
 }
 
 local servers = {
-  -- "bashls",
-  -- "gopls",
-  -- "jsonls",
-  -- "solargraph",
-  -- "sumneko_lua",
-  -- "yamlls",
+  "bashls",
+  "gopls",
+  "jsonls",
+  "solargraph",
+  "sumneko_lua",
+  "yamlls",
 }
 
 mason_lspconfig.setup({
-	ensure_installed = servers,
-	automatic_installation = true,
+	-- ensure_installed = servers,
+	-- automatic_installation = true,
 })
 
 
