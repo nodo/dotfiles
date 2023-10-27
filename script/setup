@@ -22,7 +22,7 @@ done
 
 # starship
 curl -sS https://starship.rs/install.sh -o /tmp/install-starship.sh
-sh /tmp/install-starship.sh -y
+sudo sh /tmp/install-starship.sh -y
 mkdir -p ${HOME}/.config
 starship preset pure-preset -o ${HOME}/.config/starship.toml
 
@@ -31,4 +31,5 @@ if ! grep -q "${USER}.*/bin/zsh" /etc/passwd; then
 	sudo chsh -s /bin/zsh ${USER}
 fi
 rm -rf ${HOME}/.oh-my-zsh
-curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -o /tmp/install-ohmyzsh.sh
+sudo sh /tmp/install-ohmyzsh.sh --keep-zshrc
