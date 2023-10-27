@@ -28,4 +28,6 @@ starship preset pure-preset -o ${HOME}/.config/starship.toml
 
 # zsh
 curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -o /tmp/install-ohmyzsh.sh
-sudo sh /tmp/install-ohmyzsh.sh --keep-zshrc
+rm -rf ${HOME}/.oh-my-zsh
+sh /tmp/install-ohmyzsh.sh --keep-zshrc
+sudo chsh -s /bin/zsh codespace
