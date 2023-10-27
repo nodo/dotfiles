@@ -21,10 +21,10 @@ for file in ${files[@]}; do
 done
 
 # starship config file
-curl -sS https://starship.rs/install.sh | sh
+curl -sS https://starship.rs/install.sh -o /tmp/install-starship.sh
+sh /tmp/install-starhip.sh -y
 mkdir -p ${HOME}/.config
 starship preset pure-preset -o ${HOME}/.config/starship.toml
 
 # zsh
-sudo chsh -s $(which zsh)
 curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
