@@ -3,6 +3,7 @@
         email = nodo@github.com
 [alias]
         co = checkout
+        st = status
 [init]
         defaultBranch = main
 [pull]

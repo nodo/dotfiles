@@ -1,25 +1,28 @@
-# Linuxbrew
-PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
+# oh-my-zsh
+export ZSH="$HOME/.oh-my-zsh"
+source $ZSH/oh-my-zsh.sh
+
+# needed for GitHub codespaces
+export SHELL=/bin/zsh
+
+# path
+PATH="$HOME/go/bin:$PATH"
 PATH=$HOME/bin:$PATH
 export PATH
 
-# Go tools
-export PATH="$HOME/go/bin:$PATH"
+# go
 export GOPATH="$HOME/go"
 
-# Custom binaries
-export PATH="$HOME/bin:$PATH"
-
-# Others
+# misc
 export EDITOR='nvim'
 export GIT_OPEN='nvim'
 export GITHUB_USER=nodo
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
-# Aliases
+# Alias and helpers
 alias k=kubectl
 alias ls="ls --color=auto"
 alias vim=nvim
 alias dotfiles="cd /workspaces/.codespaces/.persistedshare/dotfiles"
 
-eval "$(starship init bash)"
+eval "$(starship init zsh)"
