@@ -4,11 +4,7 @@ set -euo pipefail
 set -x
 
 # install packages
-sudo apt-get update
-sudo apt-get install -y \
-	build-essential \
-	curl \
-	zsh
+sudo apt-get update && apt-get install -y build-essential
 
 # link dotfiles
 files=(
@@ -21,9 +17,12 @@ for file in ${files[@]}; do
 	ln -fs ${PWD}/config/${file} ${HOME}/.${file}
 done
 
+# linuxbrew
+curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o /tmp/install-homebrew.sh
+sh /tmp/install_homebrew.sh
+HOMEBREW_INSTALL_FROM_API=true brew bundle install --no-lock --file ${PWD}/Brewfile
+
 # starship
-curl -sS https://starship.rs/install.sh -o /tmp/install-starship.sh
-sudo sh /tmp/install-starship.sh -y
 mkdir -p ${HOME}/.config
 starship preset pure-preset -o ${HOME}/.config/starship.toml
 

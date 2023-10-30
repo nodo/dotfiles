@@ -6,6 +6,7 @@ source $ZSH/oh-my-zsh.sh
 export SHELL=/bin/zsh
 
 # path
+PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 PATH="$HOME/go/bin:$PATH"
 PATH=$HOME/bin:$PATH
 export PATH
