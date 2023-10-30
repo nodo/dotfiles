@@ -30,3 +30,7 @@ starship preset pure-preset -o ${HOME}/.config/starship.toml
 rm -rf ${HOME}/.oh-my-zsh
 sh <(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --keep-zshrc
 sudo chsh -s /bin/zsh codespace
+
+# neovim
+git clone https://github.com/LazyVim/starter ~/.config/nvim
+rm -rf ~/.config/nvim/.git
