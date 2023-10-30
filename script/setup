@@ -4,7 +4,7 @@ set -euo pipefail
 set -x
 
 # install packages
-sudo apt-get update && apt-get install -y build-essential
+sudo apt-get update && sudo apt-get install -y build-essential
 
 # link dotfiles
 files=(
@@ -18,8 +18,8 @@ for file in ${files[@]}; do
 done
 
 # linuxbrew
-curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o /tmp/install-homebrew.sh
-sh /tmp/install_homebrew.sh
+NONINTERNACTIVE=1 bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 HOMEBREW_INSTALL_FROM_API=true brew bundle install --no-lock --file ${PWD}/Brewfile
 
 # starship
@@ -27,7 +27,6 @@ mkdir -p ${HOME}/.config
 starship preset pure-preset -o ${HOME}/.config/starship.toml
 
 # zsh
-curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -o /tmp/install-ohmyzsh.sh
 rm -rf ${HOME}/.oh-my-zsh
-sh /tmp/install-ohmyzsh.sh --keep-zshrc
+sh <(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --keep-zshrc
 sudo chsh -s /bin/zsh codespace

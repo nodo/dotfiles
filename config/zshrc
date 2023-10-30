@@ -9,6 +9,16 @@ export SHELL=/bin/zsh
 PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 PATH="$HOME/go/bin:$PATH"
 PATH=$HOME/bin:$PATH
+
+# linuxbrew
+export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+export HOMEBREW_CELLAR="/home/linuxbrew/.linuxbrew/Cellar"
+export HOMEBREW_REPOSITORY="/home/linuxbrew/.linuxbrew/Homebrew"
+export MANPATH="/home/linuxbrew/.linuxbrew/share/man${MANPATH+:$MANPATH}:"
+export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:${INFOPATH:-}"
+PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin${PATH+:$PATH}"
+
+# export path only once
 export PATH
 
 # go
