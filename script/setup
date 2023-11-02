@@ -32,4 +32,4 @@ sh <(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/i
 sudo chsh -s /bin/zsh codespace
 
 # neovim
-ln -s ${PWD}/nvim ${HOME}/.config/nvim
+ln -fs ${PWD}/nvim ${HOME}/.config/nvim
