@@ -134,9 +134,6 @@ vim.defer_fn(function()
 end, 0)
 
 -- [[ Configure LSP ]]
--- mason-lspconfig requires that these setup functions are called in this order
--- before setting up the servers.
-
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
   local nmap = function(keys, func, desc)
@@ -167,6 +164,8 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
+-- mason-lspconfig requires that these setup functions are called in this order
+-- before setting up the servers.
 require('mason').setup()
 require('mason-lspconfig').setup()
 
@@ -175,12 +174,8 @@ require('mason-lspconfig').setup()
 -- define the property 'filetypes' to the map in question.
 local servers = {
   gopls = {},
-  lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
-  },
+  sorbet = {},
+  ruby_ls = {},
 }
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
@@ -207,8 +202,8 @@ mason_lspconfig.setup_handlers {
 -- [[ Keymaps ]]
 --
 -- Copilot
-vim.keymap.set('i', '..', '<Plug>(copilot-next)')
-vim.keymap.set('i', ',,', '<Plug>(copilot-previous)')
+-- vim.keymap.set('i', '<leader>.', '<Plug>(copilot-next)')
+-- vim.keymap.set('i', '<leader>,', '<Plug>(copilot-previous)')
 
 -- Telescope
 -- Enable telescope fzf native, if installed
