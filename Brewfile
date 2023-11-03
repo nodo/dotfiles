@@ -1,7 +1,7 @@
 brew "fd"
-brew "gh", args: ["HEAD"]
+brew "gh"
 brew "jq"
-brew "neovim", args: ["HEAD"]
+brew "neovim"
 brew "ripgrep"
 brew "starship"
 brew "tmux"
