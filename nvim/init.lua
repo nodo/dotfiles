@@ -173,7 +173,6 @@ require('mason-lspconfig').setup()
 -- If you want to override the default filetypes that your language server will attach to you can
 -- define the property 'filetypes' to the map in question.
 local servers = {
-  gopls = {},
   sorbet = {},
   ruby_ls = {},
 }
@@ -200,10 +199,6 @@ mason_lspconfig.setup_handlers {
 }
 
 -- [[ Keymaps ]]
---
--- Copilot
--- vim.keymap.set('i', '<leader>.', '<Plug>(copilot-next)')
--- vim.keymap.set('i', '<leader>,', '<Plug>(copilot-previous)')
 
 -- Telescope
 -- Enable telescope fzf native, if installed
