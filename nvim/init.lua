@@ -125,6 +125,9 @@ vim.o.completeopt = "menuone,noselect"
 
 vim.o.termguicolors = true
 
+-- highlight current line
+vim.o.cursorline = true
+
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 -- Defer Treesitter setup after first render to improve startup time of "nvim {filename}"
