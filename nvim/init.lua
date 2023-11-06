@@ -235,5 +235,5 @@ vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { de
 vim.keymap.set("n", "<leader>sr", require("telescope.builtin").resume, { desc = "[S]earch [R]esume" })
 
 -- [[ NeoTree ]]
-vim.keymap.set("n", "\\", ":Neotree<CR>")
+vim.keymap.set("n", "\\", ":Neotree toggle<CR>")
 vim.keymap.set("n", "|", ":Neotree reveal<CR>")
