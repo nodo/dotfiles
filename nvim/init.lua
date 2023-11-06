@@ -186,10 +186,16 @@ require("mason-lspconfig").setup()
 -- Enable the following language servers
 -- If you want to override the default filetypes that your language server will attach to you can
 -- define the property "filetypes" to the map in question.
-local servers = {
-  sorbet = {},
-  ruby_ls = {},
-}
+local servers = {}
+
+if vim.fn.executable "go" == 1 then
+  servers["gopls"] = {}
+end
+
+if vim.fn.executable "ruby" == 1 then
+  servers["sorbet"] = {}
+  servers["ruby_ls"] = {}
+end
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
