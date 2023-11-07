@@ -298,3 +298,8 @@ vim.keymap.set("n", "<leader>sr", require("telescope.builtin").resume, { desc = 
 -- [[ NeoTree ]]
 vim.keymap.set("n", "\\", ":Neotree toggle<CR>")
 vim.keymap.set("n", "|", ":Neotree reveal<CR>")
+
+-- [[ vim-test ]]
+vim.keymap.set("n", "<leader>t", ":TestNearest<CR>")
+vim.keymap.set("n", "<leader>T", ":TestFile<CR>")
+vim.keymap.set("n", "<leader>l", ":TestLast<CR>")
