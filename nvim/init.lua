@@ -2,7 +2,6 @@
 -- See `:help mapleader`
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -130,6 +129,7 @@ vim.o.cursorline = true
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
+--
 -- Defer Treesitter setup after first render to improve startup time of "nvim {filename}"
 vim.defer_fn(function()
   require("nvim-treesitter.configs").setup {
@@ -141,10 +141,57 @@ vim.defer_fn(function()
     incremental_selection = {
       enable = true,
       keymaps = {
-        init_selection = "<c-space>",
-        node_incremental = "<c-space>",
-        scope_incremental = "<c-s>",
-        node_decremental = "<M-space>",
+        init_selection = "=",
+        node_incremental = "=",
+        node_decremental = "-",
+        scope_incremental = "+",
+      },
+    },
+    textobjects = {
+      select = {
+        enable = true,
+        lookahead = true,
+        keymaps = {
+          -- You can use the capture groups defined in textobjects.scm
+          -- e.g. caa (change around a-parameter :) )
+          ['aa'] = '@parameter.outer',
+          ['ia'] = '@paramtere.inner',
+          -- e.g. caf (change around function)
+          ['af'] = '@function.outer',
+          ['if'] = '@function.inner',
+          -- .g. cac (change around class)
+          ['ac'] = '@class.outer',
+          ['ic'] = '@class.inner',
+        },
+      },
+      move = {
+        enable = true,
+        set_jumps = true,
+        goto_next_start = {
+          [']m'] = '@function.outer',
+          [']]'] = '@class.outer',
+        },
+        goto_next_end = {
+          [']M'] = '@function.outer',
+          [']['] = '@class.outer',
+        },
+        goto_previous_start = {
+          ['[m'] = '@function.outer',
+          ['[['] = '@class.outer',
+        },
+        goto_previous_end = {
+          ['[M'] = '@function.outer',
+          ['[]'] = '@class.outer',
+        },
+      },
+      swap = {
+        enable = true,
+        swap_next = {
+          ['<leader>a'] = '@parameter.inner',
+        },
+        swap_previous = {
+          ['<leader>A'] = '@parameter.inner',
+        },
       },
     },
   }
