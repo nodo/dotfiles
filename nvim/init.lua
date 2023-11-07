@@ -95,12 +95,14 @@ require("lazy").setup({
 
   {
     -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
+    "lukas-reineke/indent-blankline.nvim",
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help ibl`
-    main = 'ibl',
+    main = "ibl",
     opts = {},
   },
+
+  "vim-test/vim-test",
 })
 
 -- [[ Colorscheme ]]
@@ -163,43 +165,43 @@ vim.defer_fn(function()
         keymaps = {
           -- You can use the capture groups defined in textobjects.scm
           -- e.g. caa (change around a-parameter :) )
-          ['aa'] = '@parameter.outer',
-          ['ia'] = '@paramtere.inner',
+          ["aa"] = "@parameter.outer",
+          ["ia"] = "@paramtere.inner",
           -- e.g. caf (change around function)
-          ['af'] = '@function.outer',
-          ['if'] = '@function.inner',
+          ["af"] = "@function.outer",
+          ["if"] = "@function.inner",
           -- .g. cac (change around class)
-          ['ac'] = '@class.outer',
-          ['ic'] = '@class.inner',
+          ["ac"] = "@class.outer",
+          ["ic"] = "@class.inner",
         },
       },
       move = {
         enable = true,
         set_jumps = true,
         goto_next_start = {
-          [']m'] = '@function.outer',
-          [']]'] = '@class.outer',
+          ["]m"] = "@function.outer",
+          ["]]"] = "@class.outer",
         },
         goto_next_end = {
-          [']M'] = '@function.outer',
-          [']['] = '@class.outer',
+          ["]M"] = "@function.outer",
+          ["]["] = "@class.outer",
         },
         goto_previous_start = {
-          ['[m'] = '@function.outer',
-          ['[['] = '@class.outer',
+          ["[m"] = "@function.outer",
+          ["[["] = "@class.outer",
         },
         goto_previous_end = {
-          ['[M'] = '@function.outer',
-          ['[]'] = '@class.outer',
+          ["[M"] = "@function.outer",
+          ["[]"] = "@class.outer",
         },
       },
       swap = {
         enable = true,
         swap_next = {
-          ['<leader>a'] = '@parameter.inner',
+          ["<leader>a"] = "@parameter.inner",
         },
         swap_previous = {
-          ['<leader>A'] = '@parameter.inner',
+          ["<leader>A"] = "@parameter.inner",
         },
       },
     },
