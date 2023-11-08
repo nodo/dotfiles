@@ -102,7 +102,21 @@ require("lazy").setup({
     opts = {},
   },
 
-  "vim-test/vim-test",
+  {
+    "nvim-neotest/neotest",
+    lazy = true,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "olimorris/neotest-rspec",
+    },
+    config = function()
+      require("neotest").setup({
+        adapters = {
+          require("neotest-rspec")
+        },
+      })
+    end
+  }
 })
 
 -- [[ Colorscheme ]]
@@ -280,6 +294,7 @@ mason_lspconfig.setup_handlers {
 }
 
 -- [[ Keymaps ]]
+vim.keymap.set("n", "<BS>", ":noh<CR>")
 
 -- Telescope
 -- Enable telescope fzf native, if installed
@@ -299,7 +314,5 @@ vim.keymap.set("n", "<leader>sr", require("telescope.builtin").resume, { desc = 
 vim.keymap.set("n", "\\", ":Neotree toggle<CR>")
 vim.keymap.set("n", "|", ":Neotree reveal<CR>")
 
--- [[ vim-test ]]
-vim.keymap.set("n", "<leader>t", ":TestNearest<CR>")
-vim.keymap.set("n", "<leader>T", ":TestFile<CR>")
-vim.keymap.set("n", "<leader>l", ":TestLast<CR>")
+-- [[ neotest ]]
+vim.keymap.set("n", "<leader>t", require("neotest").run.run)
