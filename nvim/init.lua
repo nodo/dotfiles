@@ -316,3 +316,6 @@ vim.keymap.set("n", "|", ":Neotree reveal<CR>")
 
 -- [[ neotest ]]
 vim.keymap.set("n", "<leader>t", require("neotest").run.run)
+
+-- [[ git ]]
+vim.keymap.set("n", "<leader>gb", ":Git blame_line<CR>", { desc = "[G]it [B]lame" })
