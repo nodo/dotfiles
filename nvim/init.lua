@@ -275,6 +275,7 @@ end
 if vim.fn.executable "ruby" == 1 then
   servers["sorbet"] = {}
   servers["ruby_ls"] = {}
+  servers["rubocop"] = {}
 end
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
