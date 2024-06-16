@@ -26,6 +26,11 @@ HOMEBREW_INSTALL_FROM_API=true brew bundle install --no-lock --file ${PWD}/Brewf
 mkdir -p ${HOME}/.config
 starship preset pure-preset -o ${HOME}/.config/starship.toml
 
+# tmux (installing tpm)
+mkdir -p ${HOME}/.tmux/plugins
+git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
+tmux run '~/.tmux/plugins/tpm/bin/install_plugins'
+
 # zsh
 rm -rf ${HOME}/.oh-my-zsh
 sh <(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --keep-zshrc
