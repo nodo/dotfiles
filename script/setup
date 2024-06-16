@@ -28,8 +28,14 @@ starship preset pure-preset -o ${HOME}/.config/starship.toml
 
 # tmux (installing tpm)
 mkdir -p ${HOME}/.tmux/plugins
+rm -rf ${HOME}/.tmux/plugins/tpm
 git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
-tmux run '~/.tmux/plugins/tpm/bin/install_plugins'
+
+TMUX_BIN=/home/linuxbrew/.linuxbrew/bin/tmux
+${TMUX_BIN} start-server
+${TMUX_BIN} new-session -d
+${HOME}/.tmux/plugins/tpm/scripts/install_plugins.sh
+${TMUX_BIN} kill-server
 
 # zsh
 rm -rf ${HOME}/.oh-my-zsh
