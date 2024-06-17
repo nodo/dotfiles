@@ -17,8 +17,8 @@ return {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
+        "ruby-lsp",
         "sorbet",
-        "rubocop",
       },
     },
   },
@@ -26,8 +26,8 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       servers = {
+        ruby_lsp = {},
         sorbet = {},
-        -- rubocop = {},
       },
     },
   },
@@ -60,16 +60,5 @@ return {
         },
       },
     },
-  },
-  {
-    "stevearc/conform.nvim",
-    opts = function()
-      local opts = {
-        formatters_by_ft = {
-          ruby = { "rubocop" },
-        },
-      }
-      return opts
-    end,
   },
 }
