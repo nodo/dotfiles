@@ -1,23 +1,5 @@
 -- Set <space> as the leader key
 -- See `:help mapleader`
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
--- Install package manager
---    https://github.com/folke/lazy.nvim
---    `:help lazy.nvim.txt` for more info
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-	vim.fn.system({
-		"git",
-		"clone",
-		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
-		"--branch=stable", -- latest stable release
-		lazypath,
-	})
-end
-vim.opt.rtp:prepend(lazypath)
-
 -- Setup plugins
 require("lazy").setup({
 	-- Integration with GitHub Copilot
@@ -169,8 +151,8 @@ vim.defer_fn(function()
 					-- You can use the capture groups defined in textobjects.scm
 					-- e.g. caa (change around a-parameter :) )
 					["aa"] = "@parameter.outer",
-					["ia"] = "@paramtere.inner",
-					-- e.g. caf (change around function)
+					["ia"] = "@parameter.inner",
+					-- e.g. calf (change around function)
 					["af"] = "@function.outer",
 					["if"] = "@function.inner",
 					-- .g. cac (change around class)
@@ -225,12 +207,12 @@ local on_attach = function(_, bufnr)
 	nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 	nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
-	nmap("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+	nmap("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]definition")
 	nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
 	nmap("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
-	nmap("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
-	nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
-	nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
+	nmap("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]definition")
+	nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]symbols")
+	nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]symbols")
 
 	-- See `:help K` for why this keymap
 	nmap("K", vim.lsp.buf.hover, "Hover Documentation")
