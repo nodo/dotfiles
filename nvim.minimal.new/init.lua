@@ -19,4 +19,3 @@ require("lazy").setup("plugins")
 -- treesitter keys
 -- lsp / ruby, go, bash, json, yaml
 -- copilot
--- telescope layout

@@ -6,6 +6,10 @@ return {
 		require("telescope").setup({
 			defaults = {
 				layout_strategy = "vertical",
+				layout_config = {
+					mirror = true,
+					prompt_position = "top",
+				},
 			},
 		})
 		local builtin = require("telescope.builtin")
