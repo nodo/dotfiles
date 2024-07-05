@@ -18,4 +18,3 @@ require("lazy").setup("plugins")
 -- TODO:
 -- treesitter keys
 -- lsp / ruby, go, bash, json, yaml
--- copilot
