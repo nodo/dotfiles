@@ -11,10 +11,28 @@ if vim.fn.executable("ruby") == 1 then
 	servers["ruby_lsp"] = {}
 end
 
+local on_attach = function(_, bufnr)
+	local nmap = function(keys, func, desc)
+		if desc then
+			desc = "LSP: " .. desc
+		end
+
+		vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+	end
+
+	nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+	nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+
+	nmap("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]definition")
+	nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+	nmap("ge", require("telescope.builtin").diagnostics, "[G]oto [E]rrors")
+end
+
 return {
 	{
 		"williamboman/mason.nvim",
 		lazy = false,
+		priority = 20,
 		config = function()
 			require("mason").setup()
 		end,
@@ -22,6 +40,7 @@ return {
 	{
 		"williamboman/mason-lspconfig.nvim",
 		lazy = false,
+		priority = 20,
 		opts = {
 			ensure_installed = vim.tbl_keys(servers),
 		},
@@ -29,19 +48,18 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		lazy = false,
+		priority = 20,
 		config = function()
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			local lspconfig = require("lspconfig")
-			for server_name, _ in pairs(servers) do
+			for server_name, settings in pairs(servers) do
 				lspconfig[server_name].setup({
 					capabilities = capabilities,
+					on_attach = on_attach,
+					settings = settings,
+					filetypes = (servers[server_name] or {}).filetypes,
 				})
 			end
-
-			vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "show info" })
-			vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "[g]o to [d]definition" })
-			vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "[g]o to [r]eferences" })
-			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "[c]ode [a]ction" })
 		end,
 	},
 }
