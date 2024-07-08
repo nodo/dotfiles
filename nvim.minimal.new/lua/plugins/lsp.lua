@@ -22,7 +22,7 @@ local on_attach = function(_, bufnr)
 
 	nmap("<leader>cr", vim.lsp.buf.rename, "[R]e[n]ame")
 	nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-	nmap("<leader>cs", ":Telescope lsp_document_symbol<CR>", "[C]ode [s]earch")
+	nmap("<leader>cs", ":Telescope lsp_document_symbols<CR>", "[C]ode [s]earch")
 
 	nmap("gd", ":Telescope lsp_definitions<CR>", "[G]oto [D]definition")
 	nmap("gr", ":Telescope lsp_references<CR>", "[G]oto [R]eferences")
