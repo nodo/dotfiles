@@ -17,6 +17,3 @@ require("lazy").setup("plugins")
 
 -- TODO:
 -- treesitter keys
--- lsp / ruby, go, bash, json, yaml
--- lsp open telescope
--- c-k in tmux
