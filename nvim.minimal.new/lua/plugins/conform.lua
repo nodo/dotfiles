@@ -1,16 +1,27 @@
 return {
 	"stevearc/conform.nvim",
-	opts = {
-		formatters_by_ft = {
-			lua = { "stylua" },
-			go = { "goimports", "gofmt" },
-			bash = { "shfmt" },
-			["*"] = { "codespell" },
-			["_"] = { "trim_whitespace" },
-		},
-		format_on_save = {
-			timeout_ms = 500,
-			lsp_format = "fallback",
-		},
-	},
+	config = function()
+		local conform = require("conform")
+		conform.formatters.rubocop = {
+			command = "bundle",
+			prepend_args = { "exec", "rubocop" },
+		}
+		conform.setup({
+			formatters_by_ft = {
+				ruby = { "rubocop" },
+				["*"] = { "codespell" },
+				["_"] = { "trim_whitespace" },
+			},
+		})
+
+		vim.api.nvim_create_user_command("Format", function()
+			require("conform").format({
+				async = true,
+				timeout_ms = 1000,
+				lsp_format = "fallback",
+			})
+		end, {})
+
+		vim.keymap.set("n", "<leader>gf", ":Format<CR>", { desc = "Format code" })
+	end
 }
