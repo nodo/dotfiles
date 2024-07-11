@@ -1,9 +1,9 @@
 return {
-	"rose-pine/neovim",
+	"catppuccin/nvim",
 	lazy = false,
 	priority = 1000,
 	opts = {},
 	config = function()
-		vim.cmd.colorscheme("rose-pine-moon")
+		vim.cmd.colorscheme("catppuccin-frappe")
 	end,
 }
