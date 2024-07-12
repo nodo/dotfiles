@@ -33,7 +33,6 @@ return {
 	{
 		"williamboman/mason.nvim",
 		lazy = false,
-		priority = 20,
 		config = function()
 			require("mason").setup()
 		end,
@@ -41,7 +40,6 @@ return {
 	{
 		"williamboman/mason-lspconfig.nvim",
 		lazy = false,
-		priority = 20,
 		opts = {
 			ensure_installed = vim.tbl_keys(servers),
 		},
@@ -49,7 +47,6 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		lazy = false,
-		priority = 20,
 		config = function()
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			local lspconfig = require("lspconfig")
