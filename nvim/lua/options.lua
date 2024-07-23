@@ -3,6 +3,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- Make line numbers default
+vim.wo.number = true
 vim.wo.relativenumber = true
 
 -- Sync clipboard between OS and Neovim.
