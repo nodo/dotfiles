@@ -7,10 +7,17 @@ return {
 			"nvim-telescope/telescope-fzf-native.nvim",
 			build = "make",
 		},
+		{
+			"nvim-telescope/telescope-live-grep-args.nvim",
+			version = "^1.0.0",
+		},
 
 	},
 	config = function()
 		local telescope = require("telescope")
+		local actions = require("telescope.actions")
+		local lga_actions = require("telescope-live-grep-args.actions")
+
 		telescope.setup({
 			defaults = {
 				layout_strategy = "vertical",
@@ -24,16 +31,27 @@ return {
 					hidden = true,
 				},
 			},
+			extensions = {
+				live_grep_args = {
+					auto_quoting = true,
+					mappings = {
+						i = {
+							["<C-k>"] = lga_actions.quote_prompt(),
+							["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+							-- freeze the current list and start a fuzzy search in the frozen list
+							["<C-f>"] = actions.to_fuzzy_refine,
+						},
+					},
+				},
+			}
 		})
-		-- Enable telescope fzf native, if installed
-		pcall(telescope.load_extension, "fzf")
+
+		telescope.load_extension("fzf")
+		telescope.load_extension("live_grep_args")
 
 		local builtin = require("telescope.builtin")
-		vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[f]ind [f]iles" })
-		vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[f]ind [g]rep" })
-		vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[f]ind [h]elp" })
-		vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[f]ind [r]esume" })
-		vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[f]ind [r]esume" })
+		vim.keymap.set("n", "<leader>sg", require("telescope").extensions.live_grep_args.live_grep_args, { desc = "[s]earc [g]rep" })
+		vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[s]earch [r]esume" })
 
 		-- shorter versions
 		vim.keymap.set("n", "<leader><leader>", builtin.find_files, { desc = "find files" })
