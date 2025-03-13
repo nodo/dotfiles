@@ -20,7 +20,7 @@ done
 # linuxbrew
 NONINTERACTIVE=1 bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-HOMEBREW_INSTALL_FROM_API=true brew bundle install --no-lock --file ${PWD}/Brewfile
+HOMEBREW_INSTALL_FROM_API=true brew bundle install --file ${PWD}/Brewfile
 
 # starship
 mkdir -p ${HOME}/.config
