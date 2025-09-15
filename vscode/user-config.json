@@ -1,0 +1,150 @@
+{
+    /**
+    * Better Defaults
+    **/
+    "editor.copyWithSyntaxHighlighting": false,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.emptySelectionClipboard": false,
+    "workbench.editor.enablePreview": false,
+    "window.newWindowDimensions": "inherit",
+    "editor.multiCursorModifier": "ctrlCmd",
+    "files.trimTrailingWhitespace": true,
+    "diffEditor.renderSideBySide": false,
+    "editor.snippetSuggestions": "top",
+    "editor.detectIndentation": false,
+    "window.nativeFullScreen": false,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+
+    /**
+    * Hide everything
+    */
+    "workbench.activityBar.location": "hidden",
+    "workbench.sideBar.location": "left",
+    "workbench.statusBar.visible": false,
+    "workbench.editor.showTabs": "single",
+    "editor.minimap.enabled": false,
+    "editor.lineNumbers": "on",
+    "breadcrumbs.enabled": false,               // Hide breadcrumbs
+    "scm.diffDecorations": "gutter",            // Show git diff in only in gutter
+    "editor.hover.enabled": false,              // Hide hover info (there is a shortcut for this)
+    "editor.matchBrackets": "never",            // Hide bracket matching
+    "editor.autoClosingBrackets": "never",      // Do not auto close brackets
+    "editor.autoClosingQuotes": "never",        // Do not auto close quotes
+    "editor.autoSurround": "never",
+    "workbench.tips.enabled": false,
+    "editor.colorDecorators": false,
+    "git.decorations.enabled": false,
+    "workbench.startupEditor": "none",
+    "editor.lightbulb.enabled": "off",
+    "editor.selectionHighlight": false,
+    "editor.overviewRulerBorder": false,
+    "editor.renderLineHighlight": "none",
+    "editor.occurrencesHighlight": "off",
+    "problems.decorations.enabled": false,
+    "editor.renderControlCharacters": false,
+    "editor.hideCursorInOverviewRuler": true,
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "editor.scrollbar.vertical": "hidden",                  // Hide vertical scrollbar
+    "editor.scrollbar.horizontal": "visible",               // Leave horizontal scrollbar visible
+    "window.commandCenter": false,                          // Hide top search bar and copilot face
+    "comments.visible": false,                              // Hide gitHub PR comments
+    // "editor.gotoLocation.multipleReferences": "goto",
+    // "editor.gotoLocation.multipleDefinitions": "goto",
+    // "editor.gotoLocation.multipleDeclarations": "goto",
+    // "editor.gotoLocation.multipleImplementations": "goto",
+    // "editor.gotoLocation.multipleTypeDefinitions": "goto",
+
+    "editor.cursorBlinking": "solid",                       // Solid cursor
+
+    /**
+    * Typography
+    **/
+    "workbench.colorTheme": "Catppuccin Latte",
+    "editor.fontFamily": "JetBrains Mono",
+    "terminal.integrated.fontFamily": "JetBrains Mono",
+    "editor.fontSize": 13,
+    "terminal.integrated.fontSize": 13,
+
+    /**
+    * Find
+    **/
+    "search.useIgnoreFiles": false,
+    "search.exclude": {
+        "**/sorbet/*": true,
+        "**/vendor/*": true,
+        "**/coverage/*": true
+    },
+
+    /**
+    * Completely Disable All Autocomplete
+    * Use `ctrl+space` to trigger suggestions
+    **/
+    "editor.quickSuggestions": {
+        "other": false,
+        "comments": false,
+        "strings": false
+    },
+    "editor.suggestOnTriggerCharacters": false,
+    "editor.parameterHints.enabled": false,
+    "editor.suggest.showKeywords": false,
+    "editor.suggest.showSnippets": false,
+    "editor.suggest.preview": false,
+    "editor.acceptSuggestionOnCommitCharacter": false,
+    "editor.tabCompletion": "off",
+
+    /**
+    * Other
+    **/
+    "git.terminalGitEditor": true, // would love this to be true but it adds a lot of noise, WHY?!
+    "extensions.ignoreRecommendations": true,
+    "terminal.integrated.stickyScroll.enabled": false,
+    "editor.glyphMargin": false,
+    "explorer.decorations.badges": false,
+    "explorer.decorations.colors": false,
+    "explorer.openEditors.visible": 1,
+    "workbench.editor.tabActionCloseVisibility": false,
+    "workbench.layoutControl.enabled": false,
+    "window.title": " ",
+    "githubPullRequests.terminalLinksHandler": "github",
+    "gitlens.codeLens.enabled": false,
+
+    // vim settings
+    "vim.leader": "<space>",
+    "vim.handleKeys": {
+        "<C-a>": false,
+        "<C-e>": false,
+        "<C-f>": false,
+        "<C-b>": false
+    },
+    "vim.useSystemClipboard": true,
+    "vim.normalModeKeyBindings": [
+      {
+         "before": ["g", "r"],
+         "commands": ["editor.action.goToReferences"]
+      }
+    ],
+    "vim.visualModeKeyBindings": [
+        {
+            "before": [">"],
+            "commands": ["editor.action.indentLines"]
+        },
+        {
+            "before": ["<"],
+            "commands": ["editor.action.outdentLines"]
+        }
+    ],
+
+    /**
+    * Custom CSS
+    **/
+    "vscode_custom_css.imports": [
+        "file:///Users/nodo/code/custom_vscode.css"
+    ],
+    "go.toolsManagement.autoUpdate": true,
+    "azureTerraform.survey": {
+        "surveyPromptDate": "2025-07-06T14:19:05.534Z",
+        "surveyPromptIgnoredCount": 0
+    }
+}
+
