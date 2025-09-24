@@ -1,7 +1,7 @@
 if vim.fn.executable("node") == 0 then
-	return {}
+    return {}
 end
 
 return {
-	"github/copilot.vim",
+    "github/copilot.vim",
 }
