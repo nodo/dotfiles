@@ -36,12 +36,13 @@ return {
             desc = "Sidekick Toggle CLI",
             mode = { "n", "v" },
         },
-    { "<leader>ap",
-      function()
-        require("sidekick.cli").select_prompt()
-      end,
-      desc = "Sidekick Ask Prompt",
-      mode = { "n", "v" },
+        {
+            "<leader>ap",
+            function()
+                require("sidekick.cli").select_prompt()
+                end,
+            desc = "Sidekick Ask Prompt",
+            mode = { "n", "v" },
+        },
     },
-  },
 }
