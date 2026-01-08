@@ -1,5 +1,6 @@
 return {
     "folke/sidekick.nvim",
+    lazy = false,
     opts = {
         cli = {
             mux = {
