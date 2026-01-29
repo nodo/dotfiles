@@ -61,4 +61,7 @@ import = [
   "~/.config/alacritty/catppuccin-mocha.toml"
 ]
 
-[terminal]
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001b\r"
