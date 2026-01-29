@@ -1,0 +1,5 @@
+font-family = JetBrainsMonoNL NFM
+font-size = 13
+theme = Catppuccin Frappe
+macos-non-native-fullscreen = true
+fullscreen = true
