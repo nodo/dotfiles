@@ -10,10 +10,6 @@ if vim.fn.executable("ruby") == 1 then
     servers["sorbet"] = {}
 end
 
-if vim.fn.executable("node") == 1 then
-    servers["copilot"] = {}
-end
-
 return {
     {
         "williamboman/mason.nvim",
