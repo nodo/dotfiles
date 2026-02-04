@@ -5,18 +5,18 @@ source $ZSH/oh-my-zsh.sh
 # needed for GitHub codespaces
 export SHELL=/bin/zsh
 
+# Homebrew (works on macOS and Linux)
+if [[ -f /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -f /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+elif [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
 # path
-PATH=/home/linuxbrew/.linuxbrew/bin:$PATH
 PATH="$HOME/go/bin:$PATH"
 PATH=$HOME/bin:$PATH
-
-# linuxbrew
-export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
-export HOMEBREW_CELLAR="/home/linuxbrew/.linuxbrew/Cellar"
-export HOMEBREW_REPOSITORY="/home/linuxbrew/.linuxbrew/Homebrew"
-export MANPATH="/home/linuxbrew/.linuxbrew/share/man${MANPATH+:$MANPATH}:"
-export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:${INFOPATH:-}"
-PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin${PATH+:$PATH}"
 
 # export path only once
 export PATH
@@ -32,8 +32,14 @@ export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
 # Alias and helpers
 alias k=kubectl
-alias ls="ls --color=auto"
 alias vim=nvim
 alias dotfiles="cd /workspaces/.codespaces/.persistedshare/dotfiles"
+
+# ls alias (cross-platform)
+if [[ "$(uname)" == "Darwin" ]]; then
+  alias ls="ls -G"
+else
+  alias ls="ls --color=auto"
+fi
 
 eval "$(starship init zsh)"

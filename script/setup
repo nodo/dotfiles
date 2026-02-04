@@ -3,8 +3,26 @@
 set -euo pipefail
 set -x
 
-# install packages
-sudo apt-get update && sudo apt-get install -y build-essential
+# OS detection
+OS="$(uname -s)"
+ARCH="$(uname -m)"
+
+# install build tools
+if [[ "$OS" == "Darwin" ]]; then
+  # macOS: install Xcode CLI tools
+  xcode-select --install 2>/dev/null || true
+
+  # Homebrew paths
+  if [[ "$ARCH" == "arm64" ]]; then
+    BREW_PREFIX="/opt/homebrew"
+  else
+    BREW_PREFIX="/usr/local"
+  fi
+else
+  # Linux: install build-essential
+  sudo apt-get update && sudo apt-get install -y build-essential
+  BREW_PREFIX="/home/linuxbrew/.linuxbrew"
+fi
 
 # link dotfiles
 files=(
@@ -17,40 +35,38 @@ for file in ${files[@]}; do
 	ln -fs ${PWD}/config/${file} ${HOME}/.${file}
 done
 
-# linuxbrew
-NONINTERACTIVE=1 bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# homebrew
+if [[ ! -f "$BREW_PREFIX/bin/brew" ]]; then
+  NONINTERACTIVE=1 bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
+fi
+eval "$($BREW_PREFIX/bin/brew shellenv)"
 HOMEBREW_INSTALL_FROM_API=true brew bundle install --file ${PWD}/Brewfile
 
 # starship
 mkdir -p ${HOME}/.config
-starship preset pure-preset -o ${HOME}/.config/starship.toml
+ln -fs ${PWD}/config/starship.toml ${HOME}/.config/starship.toml ${HOME}/.config/starship.yml
+
+# link terminal configs on macOS
+if [[ "$OS" == "Darwin" ]]; then
+  ln -fs ${PWD}/alacritty ${HOME}/.config/alacritty
+  ln -fs ${PWD}/ghostty/config ${HOME}/.config/ghostty
+fi
 
 # tmux (installing tpm)
 mkdir -p ${HOME}/.tmux/plugins
 rm -rf ${HOME}/.tmux/plugins/tpm
 git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
 
-TMUX_BIN=/home/linuxbrew/.linuxbrew/bin/tmux
+TMUX_BIN=$BREW_PREFIX/bin/tmux
 ${TMUX_BIN} start-server
 ${TMUX_BIN} new-session -d
 ${HOME}/.tmux/plugins/tpm/scripts/install_plugins.sh
 ${TMUX_BIN} kill-server
 
 # zsh
-rm -rf ${HOME}/.oh-my-zsh
-sh <(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --keep-zshrc
-sudo chsh -s /bin/zsh ${USER}
+if [[ "$SHELL" != "/bin/zsh" ]]; then
+  sudo chsh -s /bin/zsh ${USER}
+fi
 
 # neovim
 ln -fs ${PWD}/nvim ${HOME}/.config/nvim
-
-# install nvm
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-
-export NVM_DIR="/usr/local/share/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-nvm install node
-npm install -g @github/copilot@latest
-nvm use node
