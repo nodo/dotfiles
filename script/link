@@ -18,10 +18,15 @@ done
 # Link config directories
 mkdir -p "$HOME/.config"
 ln -fs "$DOTFILES_DIR/config/starship.toml" "$HOME/.config/starship.toml"
-ln -fs "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
+
+# Remove existing directories/symlinks before linking to avoid nested symlinks
+rm -rf "$HOME/.config/nvim"
+ln -s "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
 
 # Link terminal configs on macOS
 if [[ "$OS" == "Darwin" ]]; then
-  ln -fs "$DOTFILES_DIR/alacritty" "$HOME/.config/alacritty"
-  ln -fs "$DOTFILES_DIR/ghostty/config" "$HOME/.config/ghostty"
+  rm -rf "$HOME/.config/alacritty"
+  ln -s "$DOTFILES_DIR/alacritty" "$HOME/.config/alacritty"
+  rm -rf "$HOME/.config/ghostty"
+  ln -s "$DOTFILES_DIR/ghostty/config" "$HOME/.config/ghostty"
 fi
