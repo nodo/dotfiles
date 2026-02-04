@@ -1,0 +1,19 @@
+#!/bin/bash
+# Install tmux plugin manager and plugins
+
+source "$(dirname "$0")/lib.sh"
+set -x
+
+eval "$($BREW_PREFIX/bin/brew shellenv)"
+
+# Install tpm
+mkdir -p "$HOME/.tmux/plugins"
+rm -rf "$HOME/.tmux/plugins/tpm"
+git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+
+# Install plugins
+TMUX_BIN="$BREW_PREFIX/bin/tmux"
+${TMUX_BIN} start-server
+${TMUX_BIN} new-session -d
+"$HOME/.tmux/plugins/tpm/scripts/install_plugins.sh"
+${TMUX_BIN} kill-server

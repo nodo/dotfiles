@@ -1,0 +1,20 @@
+#!/bin/bash
+# Install Homebrew and packages from Brewfile
+
+source "$(dirname "$0")/lib.sh"
+set -x
+
+# Install build tools
+if [[ "$OS" == "Darwin" ]]; then
+  xcode-select --install 2>/dev/null || true
+else
+  sudo apt-get update && sudo apt-get install -y build-essential
+fi
+
+# Install Homebrew
+if [[ ! -f "$BREW_PREFIX/bin/brew" ]]; then
+  NONINTERACTIVE=1 bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
+fi
+
+eval "$($BREW_PREFIX/bin/brew shellenv)"
+HOMEBREW_INSTALL_FROM_API=true brew bundle install --file "$DOTFILES_DIR/Brewfile"

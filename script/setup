@@ -1,72 +1,11 @@
 #!/bin/bash
+# Main setup script - runs all setup scripts
 
 set -euo pipefail
-set -x
 
-# OS detection
-OS="$(uname -s)"
-ARCH="$(uname -m)"
+SCRIPT_DIR="$(dirname "$0")"
 
-# install build tools
-if [[ "$OS" == "Darwin" ]]; then
-  # macOS: install Xcode CLI tools
-  xcode-select --install 2>/dev/null || true
-
-  # Homebrew paths
-  if [[ "$ARCH" == "arm64" ]]; then
-    BREW_PREFIX="/opt/homebrew"
-  else
-    BREW_PREFIX="/usr/local"
-  fi
-else
-  # Linux: install build-essential
-  sudo apt-get update && sudo apt-get install -y build-essential
-  BREW_PREFIX="/home/linuxbrew/.linuxbrew"
-fi
-
-# link dotfiles
-files=(
-	"ripgreprc"
-	"gitconfig"
-	"tmux.conf"
-	"zshrc"
-)
-for file in ${files[@]}; do
-	ln -fs ${PWD}/config/${file} ${HOME}/.${file}
-done
-
-# homebrew
-if [[ ! -f "$BREW_PREFIX/bin/brew" ]]; then
-  NONINTERACTIVE=1 bash <(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)
-fi
-eval "$($BREW_PREFIX/bin/brew shellenv)"
-HOMEBREW_INSTALL_FROM_API=true brew bundle install --file ${PWD}/Brewfile
-
-# starship
-mkdir -p ${HOME}/.config
-ln -fs ${PWD}/config/starship.toml ${HOME}/.config/starship.toml
-
-# link terminal configs on macOS
-if [[ "$OS" == "Darwin" ]]; then
-  ln -fs ${PWD}/alacritty ${HOME}/.config/alacritty
-  ln -fs ${PWD}/ghostty/config ${HOME}/.config/ghostty
-fi
-
-# tmux (installing tpm)
-mkdir -p ${HOME}/.tmux/plugins
-rm -rf ${HOME}/.tmux/plugins/tpm
-git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
-
-TMUX_BIN=$BREW_PREFIX/bin/tmux
-${TMUX_BIN} start-server
-${TMUX_BIN} new-session -d
-${HOME}/.tmux/plugins/tpm/scripts/install_plugins.sh
-${TMUX_BIN} kill-server
-
-# zsh
-if [[ "$SHELL" != "/bin/zsh" ]]; then
-  sudo chsh -s /bin/zsh ${USER}
-fi
-
-# neovim
-ln -fs ${PWD}/nvim ${HOME}/.config/nvim
+"$SCRIPT_DIR/brew"
+"$SCRIPT_DIR/link"
+"$SCRIPT_DIR/tmux"
+"$SCRIPT_DIR/zsh"
