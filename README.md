@@ -1,3 +1,1 @@
 # dotfiles
-
-Setup GitHub codespaces.
