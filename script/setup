@@ -44,7 +44,7 @@ HOMEBREW_INSTALL_FROM_API=true brew bundle install --file ${PWD}/Brewfile
 
 # starship
 mkdir -p ${HOME}/.config
-ln -fs ${PWD}/config/starship.toml ${HOME}/.config/starship.toml ${HOME}/.config/starship.yml
+ln -fs ${PWD}/config/starship.toml ${HOME}/.config/starship.toml
 
 # link terminal configs on macOS
 if [[ "$OS" == "Darwin" ]]; then
