@@ -28,5 +28,5 @@ if [[ "$OS" == "Darwin" ]]; then
   rm -rf "$HOME/.config/alacritty"
   ln -s "$DOTFILES_DIR/alacritty" "$HOME/.config/alacritty"
   rm -rf "$HOME/.config/ghostty"
-  ln -s "$DOTFILES_DIR/ghostty/config" "$HOME/.config/ghostty"
+  ln -s "$DOTFILES_DIR/ghostty" "$HOME/.config/ghostty"
 fi
