@@ -30,7 +30,6 @@ setopt AUTO_CD                  # `foo` becomes `cd foo` when foo is a dir
 setopt AUTO_PUSHD               # pushd on cd (enables `dirs -v`)
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_SILENT
-setopt CORRECT                  # spelling correction for commands
 setopt COMPLETE_IN_WORD         # complete from middle of word
 
 # ----- Completion system -----
