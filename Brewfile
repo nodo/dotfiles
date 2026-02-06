@@ -1,3 +1,4 @@
+brew "btop"
 brew "fd"
 brew "gh"
 brew "jq"
