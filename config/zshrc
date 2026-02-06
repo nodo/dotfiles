@@ -33,6 +33,16 @@ setopt PUSHD_SILENT
 setopt CORRECT                  # spelling correction for commands
 setopt COMPLETE_IN_WORD         # complete from middle of word
 
+# ----- Completion system -----
+autoload -Uz compinit && compinit -C
+
+# Completion colors (uses LS_COLORS)
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'  # case-insensitive matching
+zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
+zstyle ':completion:*:warnings' format '%F{red}-- no matches --%f'
+
 # ----- Key bindings (sane defaults) -----
 bindkey -e
 
@@ -46,6 +56,12 @@ path=(
 
 # ----- Env vars -----
 export CLICOLOR=1
+# LS_COLORS: di=directories, ln=symlinks, so=sockets, pi=pipes, ex=executables
+#            bd=block devices, cd=char devices, su=setuid, sg=setgid
+#            tw=sticky+world-writable, ow=world-writable
+# Colors: 30=black, 31=red, 32=green, 33=yellow, 34=blue, 35=magenta, 36=cyan
+#         Background: 40-47 (same order)
+export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43'
 export EDITOR='nvim'
 export GIT_OPEN='nvim'
 export GITHUB_USER=nodo
