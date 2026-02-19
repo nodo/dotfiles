@@ -38,6 +38,7 @@ return {
             vim.keymap.set("n", "gd", ":Telescope lsp_definitions<CR>", { desc = "[G]oto [D]efinition" })
             vim.keymap.set("n", "gr", ":Telescope lsp_references<CR>", { desc = "[G]oto [R]eferences" })
             vim.keymap.set("n", "ge", ":Telescope diagnostics<CR>", { desc = "[G]oto [E]rrors" })
+            vim.keymap.set("n", "gi", ":Telescope lsp_implementations<CR>", { desc = "[G]oto [I]mplementations" })
         end,
     },
 }

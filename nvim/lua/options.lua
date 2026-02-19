@@ -29,6 +29,12 @@ vim.o.expandtab = true -- Pressing the TAB key will insert spaces instead of a T
 vim.o.softtabstop = 4  -- Number of spaces inserted instead of a TAB character
 vim.o.shiftwidth = 4   -- Number of spaces inserted when indenting
 
+-- trailing whitespaces
+vim.opt.list = true
+vim.opt.listchars:append({ trail = '·' })
+vim.fn.matchadd('TrailingWhitespace', [[\s\+$]])
+vim.api.nvim_set_hl(0, 'TrailingWhitespace', { fg = 'red' })
+
 -- Auto-reload files changed outside of Neovim (e.g. by Claude Code)
 vim.o.autoread = true
 vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold" }, {
