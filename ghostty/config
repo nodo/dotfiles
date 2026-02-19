@@ -1,5 +1,8 @@
-font-family = JetBrainsMonoNL NFM
-font-size = 13
-theme = Catppuccin Frappe
+font-family = Monaspace Argon NF
+font-size = 14
+font-feature = calt
+font-feature = liga
+
+theme = Catppuccin Macchiato
 macos-non-native-fullscreen = true
 fullscreen = true

@@ -5,7 +5,7 @@ return {
     opts = {},
     config = function()
         require("catppuccin").setup({
-            flavour = "frappe",
+            flavour = "macchiato",
             integrations = {
                 gitsigns = true,
                 treesitter = true,
