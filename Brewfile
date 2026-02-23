@@ -10,3 +10,4 @@ brew "tmux"
 brew "tree-sitter-cli"
 
 cask "claude-code"
+cask "font-monaspace"
