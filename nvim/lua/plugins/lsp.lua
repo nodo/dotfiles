@@ -7,7 +7,10 @@ if vim.fn.executable("go") == 1 then
 end
 
 if vim.fn.executable("ruby") == 1 then
-    servers["sorbet"] = {}
+    local ruby_version = vim.fn.system("ruby --version 2>/dev/null")
+    if ruby_version:match("ruby 3%.") then
+        servers["sorbet"] = {}
+    end
 end
 
 return {
