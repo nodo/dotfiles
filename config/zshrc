@@ -74,3 +74,4 @@ alias ..='cd ..'
 alias ...='cd ../..'
 
 eval "$(starship init zsh)"
+eval "$(mise activate zsh)"
