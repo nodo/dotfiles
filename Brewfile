@@ -7,5 +7,6 @@ brew "neovim"
 brew "ripgrep"
 brew "starship"
 brew "tmux"
+brew "tree-sitter-cli"
 
 cask "claude-code"
