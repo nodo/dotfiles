@@ -8,6 +8,7 @@ set -x
 files=(
 	"ripgreprc"
 	"gitconfig"
+	"gitconfig-work"
 	"tmux.conf"
 	"zshrc"
 )

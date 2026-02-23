@@ -1,6 +1,6 @@
 [user]
         name = Andrea Nodari
-        email = nodo@github.com
+        email = and.nodari@gmail.com
 [alias]
         co = checkout
         st = status
@@ -8,3 +8,6 @@
         defaultBranch = main
 [pull]
         rebase = true
+
+[includeIf "gitdir:~/work/"]
+  path = ~/.gitconfig-work
