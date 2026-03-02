@@ -1,5 +1,6 @@
 brew "btop"
 brew "fd"
+brew "gemini-cli"
 brew "gh"
 brew "jq"
 brew "mise"
