@@ -65,7 +65,6 @@ export EDITOR='nvim'
 export GIT_OPEN='nvim'
 export GITHUB_USER=nodo
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-export ANTHROPIC_BASE_URL="https://api.githubcopilot.com"
 
 # ----- Aliases -----
 alias ll='ls -lah'
