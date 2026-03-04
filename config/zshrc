@@ -48,8 +48,8 @@ bindkey -e
 # ----- PATH management -----
 typeset -U path PATH
 path=(
-  "$HOME/.local/bin"
   "$HOME/bin"
+  "$HOME/.local/bin"
   $path
 )
 
