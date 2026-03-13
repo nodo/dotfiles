@@ -12,5 +12,7 @@ brew "starship"
 brew "tmux"
 brew "tree-sitter-cli"
 
+cask "alfred"
 cask "claude-code"
 cask "font-monaspace"
+cask "google-chrome"
