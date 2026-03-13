@@ -12,6 +12,7 @@ brew "starship"
 brew "tmux"
 brew "tree-sitter-cli"
 
+cask "1password"
 cask "alfred"
 cask "claude-code"
 cask "font-monaspace"
