@@ -20,3 +20,6 @@ cask "font-monaspace"
 cask "google-chrome"
 cask "signal"
 cask "zoom"
+
+tap "entireio/homebrew-tap"
+cask "entire"
