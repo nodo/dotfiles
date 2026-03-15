@@ -18,6 +18,7 @@ cask "claude-code"
 cask "codex"
 cask "font-monaspace"
 cask "google-chrome"
+cask "orbstack"
 cask "signal"
 cask "zoom"
 
