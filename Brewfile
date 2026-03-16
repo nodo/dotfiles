@@ -22,6 +22,7 @@ cask "font-monaspace"
 cask "google-chrome"
 cask "orbstack"
 cask "signal"
+cask "whatsapp"
 cask "zoom"
 
 tap "entireio/homebrew-tap"
