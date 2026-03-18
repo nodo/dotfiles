@@ -73,6 +73,7 @@ alias la='ls -A'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias dotfiles='cd ~/personal/dotfiles'
+alias dotbrew='pushd ~/personal/dotfiles && make _brew; popd'
 
 eval "$(starship init zsh)"
 eval "$(mise activate zsh)"
