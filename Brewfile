@@ -22,6 +22,7 @@ cask "font-monaspace"
 cask "google-chrome"
 cask "orbstack"
 cask "signal"
+cask "slack"
 cask "whatsapp"
 cask "zoom"
 
