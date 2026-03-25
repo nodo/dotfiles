@@ -7,3 +7,4 @@ font-feature = liga
 theme = Catppuccin Macchiato
 # macos-non-native-fullscreen = true
 # fullscreen = true
+macos-titlebar-style = hidden

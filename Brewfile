@@ -14,6 +14,7 @@ brew "tmux"
 brew "tree-sitter-cli"
 
 cask "1password"
+cask "1password-cli"
 cask "alfred"
 cask "claude-code"
 cask "codex"
