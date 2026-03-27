@@ -77,6 +77,7 @@ alias dotbrew='pushd ~/personal/dotfiles && make _brew; popd'
 
 eval "$(starship init zsh)"
 eval "$(mise activate zsh)"
+eval "$(zoxide init zsh)"
 
 # Entire CLI shell completion
 autoload -Uz compinit && compinit && source <(entire completion zsh)
