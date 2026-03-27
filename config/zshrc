@@ -80,3 +80,10 @@ eval "$(mise activate zsh)"
 
 # Entire CLI shell completion
 autoload -Uz compinit && compinit && source <(entire completion zsh)
+
+# bun completions
+[ -s "/Users/nodo/.bun/_bun" ] && source "/Users/nodo/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

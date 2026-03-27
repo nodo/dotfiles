@@ -12,6 +12,7 @@ brew "sox"
 brew "starship"
 brew "tmux"
 brew "tree-sitter-cli"
+brew "zoxide"
 
 cask "1password"
 cask "1password-cli"
