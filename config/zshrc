@@ -75,6 +75,12 @@ alias ...='cd ../..'
 alias dotfiles='cd ~/personal/dotfiles'
 alias dotbrew='pushd ~/personal/dotfiles && make _brew; popd'
 
+wt() {
+  local dir
+  dir=$(git worktree list | fzf --height=40% --reverse | awk '{print $1}')
+  [[ -n "$dir" ]] && cd "$dir"
+}
+
 eval "$(starship init zsh)"
 eval "$(mise activate zsh)"
 eval "$(zoxide init zsh)"
