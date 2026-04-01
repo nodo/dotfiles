@@ -4,6 +4,7 @@
 [alias]
         co = checkout
         st = status
+        wt = worktree list
 [init]
         defaultBranch = main
 [pull]
