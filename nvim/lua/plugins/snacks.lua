@@ -16,7 +16,11 @@ return {
                 { section = "startup" },
             },
         },
+        lazygit = {},
         statuscolumn = {
         },
+    },
+    keys = {
+        { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
     },
 }
