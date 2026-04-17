@@ -84,6 +84,7 @@ wt() {
 eval "$(starship init zsh)"
 eval "$(mise activate zsh)"
 eval "$(zoxide init zsh)"
+eval "$(atuin init zsh)"
 
 # Entire CLI shell completion
 autoload -Uz compinit && compinit && source <(entire completion zsh)

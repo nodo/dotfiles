@@ -1,3 +1,4 @@
+brew "atuin"
 brew "btop"
 brew "fd"
 brew "fzf"
