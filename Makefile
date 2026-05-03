@@ -8,7 +8,6 @@ help:
 	@echo "Private targets:"
 	@echo "  _brew    - Install Homebrew and packages"
 	@echo "  _link    - Symlink dotfiles and configs"
-	@echo "  _tmux    - Install tmux plugins"
 	@echo "  _zsh     - Set default shell to zsh"
 
 install:
@@ -22,9 +21,6 @@ _brew:
 
 _link:
 	./script/link
-
-_tmux:
-	./script/tmux
 
 _zsh:
 	./script/zsh
