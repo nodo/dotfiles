@@ -45,10 +45,21 @@ _wt_create_worktree() {
 _wt_remove_worktrees() {
   [[ "${FZF_SELECT_COUNT:-0}" -eq 0 ]] && return 0
 
-  local dir
+  local dir reply force_failed=0
   for dir in "$@"; do
-    git worktree remove "$dir"
+    git worktree remove "$dir" >/dev/tty 2>&1 && continue
+
+    printf 'Force remove %s? [y/N] ' "$dir" >/dev/tty
+    IFS= read -r reply </dev/tty || reply=""
+    [[ "$reply" == [yY]* ]] || continue
+
+    git worktree remove --force "$dir" >/dev/tty 2>&1 || force_failed=1
   done
+
+  if (( force_failed )); then
+    printf '\nPress enter to continue...' >/dev/tty
+    IFS= read -r _ </dev/tty
+  fi
 }
 
 wt() {
@@ -63,7 +74,7 @@ wt() {
         --multi \
         --bind 'space:toggle' \
         --bind "n:execute(bash $script_path __create)+reload(git worktree list)" \
-        --bind "ctrl-d:execute-silent(bash $script_path __remove {+1})+reload(git worktree list)" \
+        --bind "ctrl-d:execute(bash $script_path __remove {+1})+reload(git worktree list)" \
         --header 'space: toggle selection · enter: cd · n: new worktree · ctrl-d: delete selected' |
       awk 'NR == 1 {print $1}'
   )
