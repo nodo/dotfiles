@@ -91,3 +91,8 @@ autoload -Uz compinit && compinit && source <(entire completion zsh)
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# ----- Local, untracked overrides (secrets, machine-specific) -----
+# e.g. `export NTFY_TOPIC=...` for Claude Code mobile push notifications.
+# Keep secrets here so they never get committed to the dotfiles repo.
+[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"

@@ -20,6 +20,12 @@ done
 mkdir -p "$HOME/.config"
 ln -fs "$DOTFILES_DIR/config/starship.toml" "$HOME/.config/starship.toml"
 
+# Link Claude Code settings (Notification hook -> ntfy mobile push).
+# NOTE: this replaces ~/.claude/settings.json with a symlink, so merge any
+# existing settings into claude/settings.json first.
+mkdir -p "$HOME/.claude"
+ln -fs "$DOTFILES_DIR/claude/settings.json" "$HOME/.claude/settings.json"
+
 # Remove existing directories/symlinks before linking to avoid nested symlinks
 rm -rf "$HOME/.config/nvim"
 ln -s "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"

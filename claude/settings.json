@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -n \"$NTFY_TOPIC\" ] && curl -s -H \"Title: Claude Code\" -H \"Tags: robot\" -d \"Claude needs your attention\" \"ntfy.sh/$NTFY_TOPIC\" >/dev/null 2>&1; true"
+          }
+        ]
+      }
+    ]
+  }
+}
