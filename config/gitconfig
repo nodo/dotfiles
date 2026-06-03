@@ -1,14 +1,19 @@
 [user]
-        name = Andrea Nodari
-        email = and.nodari@gmail.com
+    name = Andrea Nodari
+    email = and.nodari@gmail.com
+    signingkey = ~/.ssh/id_ed25519.pub
 [alias]
-        co = checkout
-        st = status
-        wt = worktree list
+    co = checkout
+    st = status
+    wt = worktree list
 [init]
-        defaultBranch = main
+    defaultBranch = main
 [pull]
-        rebase = true
+    rebase = true
+[gpg]
+    format = ssh
+[gpg "ssh"]
+    allowedSignersFile = ~/.config/git/allowed_signers
 
 [includeIf "gitdir:~/work/"]
-  path = ~/.gitconfig-work
+    path = ~/.gitconfig-work
