@@ -20,6 +20,9 @@ done
 mkdir -p "$HOME/.config"
 ln -fs "$DOTFILES_DIR/config/starship.toml" "$HOME/.config/starship.toml"
 
+mkdir -p "$HOME/.config/herdr"
+ln -fs "$DOTFILES_DIR/config/herdr.toml" "$HOME/.config/herdr/config.toml"
+
 # Remove existing directories/symlinks before linking to avoid nested symlinks
 rm -rf "$HOME/.config/nvim"
 ln -s "$DOTFILES_DIR/nvim" "$HOME/.config/nvim"
