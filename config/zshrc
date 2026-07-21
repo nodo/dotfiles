@@ -92,3 +92,10 @@ autoload -Uz compinit && compinit && source <(entire completion zsh)
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+
+# t: drop into the new task dir after `t new`
+eval "$(command t shellinit)"
+
+autoload -U +X compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
+source ~/work/entire/fleet/scripts/natsctl-completion.bash

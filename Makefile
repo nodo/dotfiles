@@ -1,4 +1,4 @@
-.PHONY: help install test _brew _link _tmux _zsh
+.PHONY: help install test _brew _link _zsh
 
 help:
 	@echo "Available targets:"

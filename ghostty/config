@@ -6,3 +6,6 @@ font-feature = liga
 theme = Gruvbox Material Dark
 fullscreen = non-native
 macos-non-native-fullscreen = true
+
+# Treat the Option key as Alt so terminal apps (zellij/tmux) receive Alt+key.
+macos-option-as-alt = true
