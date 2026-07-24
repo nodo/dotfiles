@@ -82,8 +82,9 @@ eval "$(mise activate zsh)"
 eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"
 
-# Entire CLI shell completion
-autoload -Uz compinit && compinit && source <(entire completion zsh)
+# Entire CLI shell completion (compinit already ran above; re-running it
+# reloads the dump and wipes compdef registrations made in between)
+source <(entire completion zsh)
 
 # bun completions
 [ -s "/Users/nodo/.bun/_bun" ] && source "/Users/nodo/.bun/_bun"
@@ -93,9 +94,8 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 
-# t: drop into the new task dir after `t new`
-eval "$(command t shellinit)"
+# t: task workspaces via the entire-workspace plugin (wrapper cd's into the task)
+eval "$(command entire workspace shellinit t)"
 
-autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
 source ~/work/entire/fleet/scripts/natsctl-completion.bash
