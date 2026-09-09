@@ -135,6 +135,9 @@ split_horizontal = 'prefix+"'
 # directory = "~/.herdr/worktrees"
 
 [ui]
+# Capture mouse input for Herdr's mouse UI.
+mouse_capture = true
+
 # Sidebar width (auto-scaled based on workspace names, this sets the default)
 # sidebar_width = 26
 
