@@ -84,7 +84,9 @@ eval "$(atuin init zsh)"
 
 # Entire CLI shell completion (compinit already ran above; re-running it
 # reloads the dump and wipes compdef registrations made in between)
-source <(entire completion zsh)
+if (( $+commands[entire] )); then
+  source <(entire completion zsh)
+fi
 
 # bun completions
 [ -s "/Users/nodo/.bun/_bun" ] && source "/Users/nodo/.bun/_bun"
@@ -95,7 +97,11 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 
 # t: task workspaces via the entire-workspace plugin (wrapper cd's into the task)
-eval "$(command entire workspace shellinit t)"
+if (( $+commands[entire] )); then
+  eval "$(command entire workspace shellinit t)"
+fi
 
 autoload -U +X bashcompinit && bashcompinit
-source ~/work/entire/fleet/scripts/natsctl-completion.bash
+if [[ -f ~/work/entire/fleet/scripts/natsctl-completion.bash ]]; then
+  source ~/work/entire/fleet/scripts/natsctl-completion.bash
+fi

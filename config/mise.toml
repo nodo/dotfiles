@@ -1,0 +1,29 @@
+# mise global config.
+
+[env]
+# Pin GOBIN to the stable, version-independent ~/go/bin instead of letting
+# mise's Go backend default it to <toolchain>/bin (e.g. .../go/1.26.2/bin).
+# Keeps `go install` binaries on PATH across Go version bumps, and out of
+# the GOROOT bin dir where they'd mingle with `go`/`gofmt`.
+GOBIN = "{{env.HOME}}/go/bin"
+
+[settings]
+trusted_config_paths = ["~/work", "~/personal/dotfiles"]
+
+[tools]
+atuin = "latest"
+btop = "latest"
+fd = "latest"
+fzf = "latest"
+gh = "latest"
+herdr = "latest"
+jq = "latest"
+k9s = "latest"
+mkcert = "latest"
+"aqua:neovim/neovim" = "latest"
+opencode = "latest"
+ripgrep = "latest"
+starship = "latest"
+tmux = "latest"
+tree-sitter = "latest"
+zoxide = "latest"

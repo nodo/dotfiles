@@ -6,7 +6,7 @@ cd "$(dirname "$0")/.."
 
 echo "==> Building test container..."
 docker build -t dotfiles-test -f - . <<'DOCKERFILE'
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -31,37 +31,44 @@ WORKDIR /home/testuser/dotfiles
 DOCKERFILE
 
 echo "==> Running setup and validation in container..."
+# Authenticate GitHub API calls to avoid anonymous rate limits
+GITHUB_TOKEN="${GITHUB_TOKEN:-$(gh auth token 2>/dev/null || true)}"
+
 docker run --rm \
     -v "$PWD:/home/testuser/dotfiles" \
+    -e GITHUB_TOKEN \
     -e HOME=/home/testuser \
     dotfiles-test \
     bash -c '
         set -e
 
-        echo "==> Running setup..."
-        ./script/setup
+        echo "==> Installing mise..."
+        curl -fsSL https://mise.run | sh
+        export PATH="$HOME/.local/bin:$HOME/.local/share/mise/shims:$PATH"
+
+        echo "==> Running bootstrap..."
+        mise trust
+        mise bootstrap -y
 
         echo ""
         echo "==> Validating installation..."
         export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-        echo "Checking brew..."
-        brew --version
+        echo "Checking bootstrap status..."
+        mise bootstrap status
 
-        echo "Checking nvim..."
+        echo "Checking brew packages..."
+        tree --version
+
+        echo "Checking tools..."
         nvim --version | head -1
-
-        echo "Checking tmux..."
         tmux -V
-
-        echo "Checking starship..."
         starship --version
 
         echo "Checking symlinks..."
         ls -la ~/.zshrc ~/.gitconfig ~/.tmux.conf ~/.ripgreprc
         ls -la ~/.config/nvim
-        ls -la ~/.config/starship.toml
+        ls -la ~/.config/starship.toml ~/.config/mise/config.toml
 
         echo "Checking zshrc loads without errors..."
         zsh -c "source ~/.zshrc && echo zshrc OK"

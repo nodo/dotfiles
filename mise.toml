@@ -1,0 +1,52 @@
+# Machine setup: `mise trust && mise bootstrap`
+# CLI tools live in config/mise.toml (global config) so they're on PATH everywhere.
+
+[bootstrap.packages]
+# Linux build toolchain
+"apt:build-essential" = { os = "linux" }
+
+# Formulae not available as mise tools
+"brew:colima" = "latest" # pulls in lima
+"brew:sox" = "latest"
+"brew:tree" = "latest"
+
+# macOS apps
+"brew-cask:1password" = { os = "macos" }
+"brew-cask:1password-cli" = { os = "macos" }
+"brew-cask:alfred" = { os = "macos" }
+"brew-cask:claude-code@latest" = { os = "macos" }
+"brew-cask:codex" = { os = "macos" }
+"brew-cask:font-jetbrains-mono-nerd-font" = { os = "macos" }
+"brew-cask:google-chrome" = { os = "macos" }
+"brew-cask:signal" = { os = "macos" }
+"brew-cask:slack" = { os = "macos" }
+"brew-cask:whatsapp" = { os = "macos" }
+"brew-cask:zoom" = { os = "macos" }
+"brew-cask:entireio/tap/entire" = { os = "macos" }
+
+[bootstrap.hooks]
+# Command Line Tools have no native resource; guard so re-runs are no-ops
+pre-packages = "[ \"$(uname -s)\" != Darwin ] || xcode-select -p >/dev/null 2>&1 || xcode-select --install"
+
+[bootstrap.user]
+login_shell = "/bin/zsh"
+
+[dotfiles]
+"~/.zshrc" = "config/zshrc"
+"~/.gitconfig" = "config/gitconfig"
+"~/.gitconfig-work" = "config/gitconfig-work"
+"~/.tmux.conf" = "config/tmux.conf"
+"~/.ripgreprc" = "config/ripgreprc"
+"~/.config/starship.toml" = "config/starship.toml"
+"~/.config/herdr/config.toml" = "config/herdr.toml"
+"~/.config/mise/config.toml" = "config/mise.toml"
+"~/.config/nvim" = "nvim"
+"~/.config/ghostty" = { source = "ghostty", variants = [{ os = "macos" }] }
+
+[tasks.bootstrap]
+description = "Smoke test after bootstrap"
+run = "zsh -c 'source ~/.zshrc && echo zshrc OK'"
+
+[tasks.test]
+description = "Run bootstrap in a Linux container"
+run = "./script/test.sh"

@@ -1,5 +1,19 @@
 # dotfiles
 
+## setup
+
+```sh
+curl https://mise.run | sh
+git clone https://github.com/nodo/dotfiles.git ~/personal/dotfiles
+cd ~/personal/dotfiles && mise trust && mise bootstrap
+```
+
+- `mise bootstrap --dry-run` preview changes
+- `mise bootstrap status` inspect state
+- `mise run test` run bootstrap in a Linux container
+
+System packages and dotfiles live in `mise.toml`; CLI tools in `config/mise.toml` (linked as the global mise config).
+
 ## neovim keybindings
 
 - `<leader>f` format
