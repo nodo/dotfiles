@@ -11,13 +11,20 @@ GOBIN = "{{env.HOME}}/go/bin"
 trusted_config_paths = ["~/work", "~/personal/dotfiles"]
 
 [settings.github]
-# gh keeps its token in the macOS keychain, which mise can't read from hosts.yml
-credential_command = "~/.local/share/mise/shims/gh auth token"
+# gh keeps its token in the macOS keychain, which mise can't read from hosts.yml.
+# Call the installed binary, not the shim: the shim runs mise, which would ask for a token again.
+credential_command = "~/.local/share/mise/installs/gh/latest/*/bin/gh auth token"
 
 [tools]
 atuin = "latest"
 btop = { version = "latest", os = ["linux"] } # aqua has no macOS build; brew on macOS
+claude-code = "latest"
 "github:entireio/cli" = "latest"
+codex = "latest"
+colima = { version = "latest", os = ["macos"] }
+docker-cli = { version = "latest", os = ["macos"] }
+docker-compose = { version = "latest", os = ["macos"] }
+"github:docker/docker-credential-helpers" = { version = "latest", os = ["macos"], asset_pattern = "docker-credential-osxkeychain-*.darwin-arm64", bin = "docker-credential-osxkeychain" }
 fd = "latest"
 fzf = "latest"
 gh = "latest"
@@ -27,9 +34,10 @@ jq = "latest"
 k9s = "latest"
 kind = "latest"
 kubectl = "latest"
+lima = { version = "latest", os = ["macos"] } # colima needs limactl
 mkcert = "latest"
-node = "lts"
 "aqua:neovim/neovim" = "latest"
+node = "lts"
 opencode = "latest"
 ripgrep = "latest"
 starship = "latest"

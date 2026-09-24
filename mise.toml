@@ -4,10 +4,6 @@
 [bootstrap.packages]
 # Formulae not available as mise tools
 "brew:btop" = { os = "macos" }
-"brew:colima" = { os = "macos" } # pulls in lima
-"brew:docker" = { os = "macos" }
-"brew:docker-compose" = { os = "macos" }
-"brew:docker-credential-helper" = { os = "macos" }
 "brew:git" = { os = "macos" }
 "apt:git" = { os = "linux" }
 "brew:sox" = { os = "macos" }
@@ -20,8 +16,6 @@
 "brew-cask:1password" = { os = "macos" }
 "brew-cask:1password-cli" = { os = "macos" }
 "brew-cask:alfred" = { os = "macos" }
-"brew-cask:claude-code@latest" = { os = "macos" }
-"brew-cask:codex" = { os = "macos" }
 "brew-cask:font-jetbrains-mono-nerd-font" = { os = "macos" }
 "brew-cask:signal" = { os = "macos" }
 "brew-cask:slack" = { os = "macos" }
@@ -31,9 +25,11 @@
 [bootstrap.hooks]
 # Command Line Tools have no native resource; guard so re-runs are no-ops
 pre-packages = "[ \"$(uname -s)\" != Darwin ] || xcode-select -p >/dev/null 2>&1 || xcode-select --install"
-post-tools = "mise run completions"
-# docker only looks for CLI plugins in ~/.docker/cli-plugins, not brew's lib dir
-post-packages = "[ \"$(uname -s)\" != Darwin ] || { mkdir -p ~/.docker/cli-plugins && ln -sfn /opt/homebrew/lib/docker/cli-plugins/docker-compose ~/.docker/cli-plugins/docker-compose; }"
+post-tools = [
+  "mise run completions",
+  # `docker compose` only finds plugins in ~/.docker/cli-plugins
+  "[ \"$(uname -s)\" != Darwin ] || { mkdir -p ~/.docker/cli-plugins && ln -sfn \"$(mise which docker-compose)\" ~/.docker/cli-plugins/docker-compose; }",
+]
 
 [bootstrap.user]
 login_shell = "/bin/zsh"
@@ -68,6 +64,11 @@ starship completions zsh > "$dir/_starship"
 k9s completion zsh > "$dir/_k9s"
 kubectl completion zsh > "$dir/_kubectl"
 kind completion zsh > "$dir/_kind"
+if [ "$(uname -s)" = Darwin ]; then
+  docker completion zsh > "$dir/_docker"
+  colima completion zsh > "$dir/_colima"
+  limactl completion zsh > "$dir/_limactl"
+fi
 entire completion zsh > "$dir/_entire"
 herdr completion zsh > "$dir/_herdr"
 tree-sitter complete --shell zsh > "$dir/_tree-sitter"
