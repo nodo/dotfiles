@@ -32,7 +32,7 @@ DOCKERFILE
 
 echo "==> Running setup and validation in container..."
 # Authenticate GitHub API calls to avoid anonymous rate limits
-GITHUB_TOKEN="${GITHUB_TOKEN:-$(gh auth token 2>/dev/null || true)}"
+export GITHUB_TOKEN="${GITHUB_TOKEN:-$(gh auth token 2>/dev/null || true)}"
 
 docker run --rm \
     -v "$PWD:/home/testuser/dotfiles" \
