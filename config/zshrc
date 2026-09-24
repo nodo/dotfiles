@@ -85,7 +85,10 @@ eval "$(atuin init zsh)"
 if (( $+commands[entire] )); then
   # compinit already ran above; re-running it would wipe compdefs made in between
   source <(entire completion zsh)
-  # t: task workspaces via the entire-workspace plugin (wrapper cd's into the task)
+fi
+
+# t: task workspaces via the entire-workspace plugin (wrapper cd's into the task)
+if (( $+commands[entire-workspace] )); then
   eval "$(command entire workspace shellinit t)"
 fi
 

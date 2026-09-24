@@ -15,12 +15,10 @@
 "brew-cask:claude-code@latest" = { os = "macos" }
 "brew-cask:codex" = { os = "macos" }
 "brew-cask:font-jetbrains-mono-nerd-font" = { os = "macos" }
-"brew-cask:google-chrome" = { os = "macos" }
 "brew-cask:signal" = { os = "macos" }
 "brew-cask:slack" = { os = "macos" }
 "brew-cask:whatsapp" = { os = "macos" }
 "brew-cask:zoom" = { os = "macos" }
-"brew-cask:entireio/tap/entire" = { os = "macos" }
 
 [bootstrap.hooks]
 # Command Line Tools have no native resource; guard so re-runs are no-ops
