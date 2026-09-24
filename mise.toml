@@ -27,8 +27,8 @@
 pre-packages = "[ \"$(uname -s)\" != Darwin ] || xcode-select -p >/dev/null 2>&1 || xcode-select --install"
 post-tools = [
   "mise run completions",
-  # `docker compose` only finds plugins in ~/.docker/cli-plugins
-  "[ \"$(uname -s)\" != Darwin ] || { mkdir -p ~/.docker/cli-plugins && ln -sfn \"$(mise which docker-compose)\" ~/.docker/cli-plugins/docker-compose; }",
+  # `docker compose`/`docker buildx` only find plugins in ~/.docker/cli-plugins
+  "[ \"$(uname -s)\" != Darwin ] || { mkdir -p ~/.docker/cli-plugins && for p in docker-compose docker-buildx; do ln -sfn \"$(mise which $p)\" ~/.docker/cli-plugins/$p; done; }",
 ]
 
 [bootstrap.user]

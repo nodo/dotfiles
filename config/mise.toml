@@ -24,6 +24,7 @@ codex = "latest"
 colima = { version = "latest", os = ["macos"] }
 docker-cli = { version = "latest", os = ["macos"] }
 docker-compose = { version = "latest", os = ["macos"] }
+"github:docker/buildx" = { version = "latest", os = ["macos"], asset_pattern = "buildx-*.darwin-arm64", bin = "docker-buildx" }
 "github:docker/docker-credential-helpers" = { version = "latest", os = ["macos"], asset_pattern = "docker-credential-osxkeychain-*.darwin-arm64", bin = "docker-credential-osxkeychain" }
 fd = "latest"
 fzf = "latest"
