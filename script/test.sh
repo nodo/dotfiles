@@ -52,13 +52,14 @@ docker run --rm \
 
         echo ""
         echo "==> Validating installation..."
-        export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
-
         echo "Checking bootstrap status..."
         mise bootstrap status
 
-        echo "Checking brew packages..."
+        echo "Checking system packages..."
         tree --version
+
+        echo "Checking no linuxbrew..."
+        ! ls -d /home/linuxbrew 2>/dev/null
 
         echo "Checking tools..."
         nvim --version | head -1

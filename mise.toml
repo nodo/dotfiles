@@ -2,14 +2,11 @@
 # CLI tools live in config/mise.toml (global config) so they're on PATH everywhere.
 
 [bootstrap.packages]
-# Linux build toolchain
-"apt:build-essential" = { os = "linux" }
-
 # Formulae not available as mise tools
-"brew:colima" = "latest" # pulls in lima
-"brew:ruby" = "latest"
-"brew:sox" = "latest"
-"brew:tree" = "latest"
+"brew:colima" = { os = "macos" } # pulls in lima
+"brew:sox" = { os = "macos" }
+"brew:tree" = { os = "macos" }
+"apt:tree" = { os = "linux" }
 
 # macOS apps
 "brew-cask:1password" = { os = "macos" }

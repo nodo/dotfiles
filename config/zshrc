@@ -1,8 +1,8 @@
 # needed for GitHub codespaces
 export SHELL=/bin/zsh
 
-# ----- Homebrew (macOS and Linux) -----
-for brew in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
+# ----- Homebrew -----
+for brew in /opt/homebrew/bin/brew /usr/local/bin/brew; do
   if [[ -x $brew ]]; then
     eval "$($brew shellenv)"
     break
@@ -40,7 +40,6 @@ path=(
   "$HOME/.local/bin"
   "$HOME/go/bin"
   "$BUN_INSTALL/bin"
-  /opt/homebrew/opt/ruby/bin
   $path
 )
 
