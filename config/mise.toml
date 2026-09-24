@@ -10,6 +10,10 @@ GOBIN = "{{env.HOME}}/go/bin"
 [settings]
 trusted_config_paths = ["~/work", "~/personal/dotfiles"]
 
+[settings.github]
+# gh keeps its token in the macOS keychain, which mise can't read from hosts.yml
+credential_command = "~/.local/share/mise/shims/gh auth token"
+
 [tools]
 atuin = "latest"
 btop = { version = "latest", os = ["linux"] } # aqua has no macOS build; brew on macOS
@@ -20,6 +24,8 @@ gh = "latest"
 herdr = "latest"
 jq = "latest"
 k9s = "latest"
+kind = "latest"
+kubectl = "latest"
 mkcert = "latest"
 "aqua:neovim/neovim" = "latest"
 opencode = "latest"
