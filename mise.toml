@@ -7,6 +7,7 @@
 
 # Formulae not available as mise tools
 "brew:colima" = "latest" # pulls in lima
+"brew:ruby" = "latest"
 "brew:sox" = "latest"
 "brew:tree" = "latest"
 
@@ -35,7 +36,6 @@ login_shell = "/bin/zsh"
 "~/.zshrc" = "config/zshrc"
 "~/.gitconfig" = "config/gitconfig"
 "~/.gitconfig-work" = "config/gitconfig-work"
-"~/.tmux.conf" = "config/tmux.conf"
 "~/.ripgreprc" = "config/ripgreprc"
 "~/.config/starship.toml" = "config/starship.toml"
 "~/.config/herdr/config.toml" = "config/herdr.toml"

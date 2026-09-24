@@ -62,11 +62,10 @@ docker run --rm \
 
         echo "Checking tools..."
         nvim --version | head -1
-        tmux -V
         starship --version
 
         echo "Checking symlinks..."
-        ls -la ~/.zshrc ~/.gitconfig ~/.tmux.conf ~/.ripgreprc
+        ls -la ~/.zshrc ~/.gitconfig ~/.ripgreprc
         ls -la ~/.config/nvim
         ls -la ~/.config/starship.toml ~/.config/mise/config.toml
 

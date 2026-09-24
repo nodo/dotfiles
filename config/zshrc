@@ -1,15 +1,14 @@
 # needed for GitHub codespaces
 export SHELL=/bin/zsh
 
-# Homebrew (works on macOS and Linux)
-if [[ -f /opt/homebrew/bin/brew ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-elif [[ -f /usr/local/bin/brew ]]; then
-  eval "$(/usr/local/bin/brew shellenv)"
-elif [[ -f /home/linuxbrew/.linuxbrew/bin/brew ]]; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-fi
-
+# ----- Homebrew (macOS and Linux) -----
+for brew in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
+  if [[ -x $brew ]]; then
+    eval "$($brew shellenv)"
+    break
+  fi
+done
+unset brew
 
 # ----- History -----
 HISTFILE="$HOME/.zsh_history"
@@ -23,7 +22,7 @@ setopt HIST_IGNORE_SPACE        # ignore commands starting with a space
 setopt HIST_REDUCE_BLANKS       # remove superfluous blanks
 setopt EXTENDED_HISTORY         # add timestamps
 
-# ----- Safer shell behavior -----
+# ----- Shell behavior -----
 setopt NO_BEEP
 setopt INTERACTIVE_COMMENTS
 setopt AUTO_CD                  # `foo` becomes `cd foo` when foo is a dir
@@ -31,26 +30,17 @@ setopt AUTO_PUSHD               # pushd on cd (enables `dirs -v`)
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_SILENT
 setopt COMPLETE_IN_WORD         # complete from middle of word
-
-# ----- Completion system -----
-autoload -Uz compinit && compinit -C
-
-# Completion colors (uses LS_COLORS)
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' menu select
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'  # case-insensitive matching
-zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
-zstyle ':completion:*:warnings' format '%F{red}-- no matches --%f'
-
-# ----- Key bindings (sane defaults) -----
 bindkey -e
 
-# ----- PATH management -----
+# ----- PATH -----
+export BUN_INSTALL="$HOME/.bun"
 typeset -U path PATH
 path=(
   "$HOME/bin"
   "$HOME/.local/bin"
   "$HOME/go/bin"
+  "$BUN_INSTALL/bin"
+  /opt/homebrew/opt/ruby/bin
   $path
 )
 
@@ -67,41 +57,40 @@ export GIT_OPEN='nvim'
 export GITHUB_USER=nodo
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
 
+# ----- Completion -----
+autoload -Uz compinit && compinit -C
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'  # case-insensitive matching
+zstyle ':completion:*:descriptions' format '%F{yellow}-- %d --%f'
+zstyle ':completion:*:warnings' format '%F{red}-- no matches --%f'
+
 # ----- Aliases -----
 alias ll='ls -lah'
 alias la='ls -A'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias dotfiles='cd ~/personal/dotfiles'
-alias dotbrew='pushd ~/personal/dotfiles && make _brew; popd'
+alias dotbrew='mise -C ~/personal/dotfiles bootstrap'
 
-source "${${(%):-%N}:A:h}/wt.sh"
-
-eval "$(starship init zsh)"
+# ----- Tools -----
+# mise first: starship, zoxide and atuin are mise-managed
 eval "$(mise activate zsh)"
+eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"
 
-# Entire CLI shell completion (compinit already ran above; re-running it
-# reloads the dump and wipes compdef registrations made in between)
+[[ -s "$BUN_INSTALL/_bun" ]] && source "$BUN_INSTALL/_bun"
+
+# ----- Work (entire) -----
 if (( $+commands[entire] )); then
+  # compinit already ran above; re-running it would wipe compdefs made in between
   source <(entire completion zsh)
-fi
-
-# bun completions
-[ -s "/Users/nodo/.bun/_bun" ] && source "/Users/nodo/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
-
-# t: task workspaces via the entire-workspace plugin (wrapper cd's into the task)
-if (( $+commands[entire] )); then
+  # t: task workspaces via the entire-workspace plugin (wrapper cd's into the task)
   eval "$(command entire workspace shellinit t)"
 fi
 
-autoload -U +X bashcompinit && bashcompinit
 if [[ -f ~/work/entire/fleet/scripts/natsctl-completion.bash ]]; then
+  autoload -U +X bashcompinit && bashcompinit
   source ~/work/entire/fleet/scripts/natsctl-completion.bash
 fi
