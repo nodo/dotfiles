@@ -3,6 +3,7 @@
 
 [bootstrap.packages]
 # Formulae not available as mise tools
+"brew:btop" = { os = "macos" }
 "brew:colima" = { os = "macos" } # pulls in lima
 "brew:sox" = { os = "macos" }
 "brew:tree" = { os = "macos" }

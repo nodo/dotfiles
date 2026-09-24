@@ -12,7 +12,7 @@ trusted_config_paths = ["~/work", "~/personal/dotfiles"]
 
 [tools]
 atuin = "latest"
-btop = "latest"
+btop = { version = "latest", os = ["linux"] } # aqua has no macOS build; brew on macOS
 "github:entireio/cli" = "latest"
 fd = "latest"
 fzf = "latest"
