@@ -17,6 +17,7 @@
 "brew-cask:1password-cli" = { os = "macos" }
 "brew-cask:alfred" = { os = "macos" }
 "brew-cask:font-jetbrains-mono-nerd-font" = { os = "macos" }
+"brew-cask:ghostty" = { os = "macos" }
 "brew-cask:signal" = { os = "macos" }
 "brew-cask:slack" = { os = "macos" }
 "brew-cask:whatsapp" = { os = "macos" }
@@ -25,6 +26,8 @@
 [bootstrap.hooks]
 # Command Line Tools have no native resource; guard so re-runs are no-ops
 pre-packages = "[ \"$(uname -s)\" != Darwin ] || xcode-select -p >/dev/null 2>&1 || xcode-select --install"
+# mise can't evaluate third-party tap casks without Ruby 3; let brew install sbx
+post-packages = "[ \"$(uname -s)\" != Darwin ] || brew list --cask sbx >/dev/null 2>&1 || { brew trust docker/tap && brew install --cask docker/tap/sbx; }"
 post-tools = [
   "mise run completions",
   # `docker compose`/`docker buildx` only find plugins in ~/.docker/cli-plugins
