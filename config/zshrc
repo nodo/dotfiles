@@ -72,6 +72,8 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias dotfiles='cd ~/personal/dotfiles'
 alias dotbrew='mise -C ~/personal/dotfiles bootstrap'
+# entire CLI built from ~/work/entire/cli main by punch-it (plain `entire` is the mise release)
+alias entire-main='~/go/bin/entire'
 
 # ----- Tools -----
 # mise first: starship, zoxide and atuin are mise-managed
