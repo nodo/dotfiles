@@ -10,7 +10,7 @@ GOBIN = "{{env.HOME}}/go/bin"
 [settings]
 trusted_config_paths = ["~/work", "~/personal/dotfiles"]
 # Skip the default 24h minimum_release_age for these: take releases as soon as they ship.
-minimum_release_age_excludes = ["claude-code", "codex"]
+minimum_release_age_excludes = ["claude-code", "codex", "pi"]
 
 [settings.github]
 # gh keeps its token in the macOS keychain, which mise can't read from hosts.yml.
