@@ -51,3 +51,4 @@ zoxide = "latest"
 ollama = "latest"
 uv = "latest"
 azure-cli = { version = "latest", dependency_prereleases = "allow", with = ["pip"] }
+rust = "stable"
