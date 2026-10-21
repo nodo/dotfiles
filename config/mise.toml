@@ -49,3 +49,5 @@ tree-sitter = "latest"
 zoxide = "latest"
 "github:theseus-rs/postgresql-binaries" = "18.4.0"
 ollama = "latest"
+uv = "latest"
+azure-cli = { version = "latest", dependency_prereleases = "allow", with = ["pip"] }
