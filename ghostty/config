@@ -1,9 +1,11 @@
-font-family = JetBrainsMono NF
+font-family = JetBrains Mono
 font-size = 16
 font-feature = calt
 font-feature = liga
 
 theme = Gruvbox Material Dark
+# Lift fg from the theme's #d4be98 (lum 192) to stock Gruvbox #ebdbb2 (lum 216)
+foreground = #ebdbb2
 fullscreen = non-native
 macos-non-native-fullscreen = true
 

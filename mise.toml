@@ -44,6 +44,11 @@ login_shell = "/bin/zsh"
 "~/.ripgreprc" = "config/ripgreprc"
 "~/.config/starship.toml" = "config/starship.toml"
 "~/.config/herdr/config.toml" = "config/herdr.toml"
+# Herdr app: edits to these don't hot-reload through the link; `touch -h` the link to reload
+"~/.config/herdr-app/keys.json" = "herdr-app/keys.json"
+"~/.config/herdr-app/layouts/nodo.json" = "herdr-app/layouts/nodo.json"
+"~/.config/herdr-app/mods/nodo-tabs" = "herdr-app/mods/nodo-tabs"
+"~/.config/herdr-app/mods/nodo-sidebar" = "herdr-app/mods/nodo-sidebar"
 "~/.config/mise/config.toml" = "config/mise.toml"
 "~/.config/nvim" = "nvim"
 "~/.config/ghostty" = { source = "ghostty", variants = [{ os = "macos" }] }
