@@ -1,14 +1,18 @@
 // Nodo sidebar: SPACES and AGENTS in box-drawn panels, monospace, theme colors.
-// props.part: "title" (top strip, window drag), "agent-menu" (right-click popup on an
-// agent), or omitted (the two lists).
+// props.part: "title" (top strip, window drag), "spaces" / "agents" (one list each, its
+// own focusable layout block), "agent-menu" / "space-menu" (right-click popups), or
+// omitted (both lists in one block).
 //
 // Spaces: click to switch, drag to reorder, right-click for Herdr's space menu
 // (rename, worktrees, close); git worktree spaces sit under their main checkout.
 // Agents: click to focus, right-click for pin / peek / close; pinned ones come first.
+// Keyboard: each list is a pane for pane.go: ctrl+s h focuses it, ctrl+s j/k move between
+// the two lists. Inside: j/k/g/G move, enter switches/focuses, esc / l / ctrl+s l go back
+// to the pane you came from.
 
 import { View, div } from "gpui-kit";
 import { v_flex, h_flex } from "gpui-base";
-import { spaces, agents, panes, theme, settings, run, props, exec, openOverlay, closeOverlay, setAgentOrder } from "herdr";
+import { spaces, agents, panes, theme, settings, run, props, exec, openOverlay, closeOverlay, setAgentOrder, nextCommand, focused, setShared } from "herdr";
 
 const MARK = { working: "[~]", blocked: "[!]", done: "[*]", idle: "[ ]" };
 const SPIN = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"].map((c) => `[${c}]`);
@@ -39,12 +43,80 @@ function box(t, id, title, count, body, grow = 0) {
 
 export default class NodoSidebar extends View {
   init(p, cx) {
-    if (p?.part) return;
+    // Popups are copies of this mod; only the title strip and the lists listen for focus.
+    if (p?.part && !["title", "spaces", "agents"].includes(p.part)) return;
+    if (p?.part === "title") {
+      // Focusable applies to every copy: step past the title strip onto the lists.
+      cx.spawn(async () => { for (;;) if ((await nextCommand()) === "focus") run("pane.go", { direction: "down" }); });
+      return;
+    }
+    this.handle = cx.focus_handle();
+    this.items = []; // this block's rows, keyboard order: ["s:<space id>" | "a:<agent address>", ...]
+    this.cursor = null; // item key under the keyboard cursor
+    cx.spawn(async (cx) => {
+      for (;;) {
+        const c = await nextCommand();
+        // Commands reach every copy of this mod; only the one holding the keyboard acts on keys.
+        if (c !== "focus" && !this.handle.is_focused()) continue;
+        if (c === "back") {
+          this.back();
+        } else if (c === "focus") {
+          // The pane we came from: leaving goes back to it, not to whatever pane.go picks.
+          // While a mod holds the keyboard focused().pane stays the last terminal pane, so
+          // hopping spaces -> agents keeps it.
+          this.from = focused()?.pane ?? null;
+          this.cursor = this.items.find((k) => this.isCurrent(k)) ?? this.items[0] ?? null;
+          this.handle.focus();
+          // setShared re-renders every copy, so the block we left drops its cursor.
+          setShared("nodo-sidebar.focus", `${props()?.part}:${Date.now()}`);
+        } else continue;
+        cx.notify();
+      }
+    });
     this.git = {}; // placeKey -> { repo, linked } | null (not a repo)
     this.pressed = null; // space id being dragged
     this.over = null; // space id under the pointer while dragging
     this.refreshGit(cx);
     cx.timer.every(GIT_EVERY, (cx) => this.refreshGit(cx));
+  }
+
+  isCurrent(k) {
+    if (k.startsWith("s:")) return !!spaces().find((s) => `s:${s.id}` === k)?.active;
+    return !!agents().find((a) => `a:${a.address}` === k)?.focused;
+  }
+
+  // Keys while the list has focus. Global chords (ctrl+s ...) still win.
+  key(e, cx) {
+    const ks = e.keystroke, i = this.items.indexOf(this.cursor);
+    const move = (n) => { if (this.items.length) this.cursor = this.items[Math.max(0, Math.min(this.items.length - 1, n))]; };
+    if (ks === "j" || ks === "down") move(i + 1);
+    else if (ks === "k" || ks === "up") move(i - 1);
+    else if (ks === "g") move(0);
+    else if (ks === "shift-g") move(this.items.length - 1);
+    else if (ks === "enter" || ks === "space") this.activate(this.cursor);
+    else if (ks === "escape" || ks === "l" || ks === "right") this.back();
+    else return;
+    cx.stop_propagation();
+    cx.notify();
+  }
+
+  // Back to the pane we came from if it's still in the shown tab, else the nearest one.
+  back() {
+    setShared("nodo-sidebar.focus", null);
+    const tab = focused()?.tab;
+    if (this.from && panes().some((p) => p.pane === this.from && p.tab === tab)) run("pane.focus", { pane: this.from });
+    else run("pane.go", { direction: "right" });
+  }
+
+  activate(k) {
+    if (!k) return;
+    if (k.startsWith("s:")) {
+      run("space.select", { id: k.slice(2) });
+      run("pane.go", { direction: "right" });
+    } else {
+      const a = agents().find((x) => `a:${x.address}` === k);
+      if (a) run("pane.focus", { pane: a.pane });
+    }
   }
 
   // Which repo each space is in, and whether it's a linked worktree.
@@ -92,8 +164,10 @@ export default class NodoSidebar extends View {
     const dragging = this.pressed !== null && this.pressed !== s.id;
     const from = spaces().findIndex((x) => x.id === this.pressed);
     const here = spaces().findIndex((x) => x.id === s.id);
+    const cur = this.cursor === `s:${s.id}` && this.handle?.is_focused();
     return h_flex().id(`sp-${s.id}`).relative().h(22).px(8).gap(6).items_center()
       .when(s.active, (el) => el.bg(t.selected))
+      .when(cur, (el) => el.bg(t.hover).border(1).border_color(t.accent))
       .hover((el) => el.bg(t.hover))
       .when(this.pressed === s.id && this.over !== s.id, (el) => el.opacity(0.5))
       .when(dragging && this.over === s.id, (el) => el.child(
@@ -130,8 +204,10 @@ export default class NodoSidebar extends View {
 
   agentRow(t, a) {
     const mark = div().flex_none().text_color(statusColor(t, a.status));
+    const cur = this.cursor === `a:${a.address}` && this.handle?.is_focused();
     return v_flex().id(`ag-${a.address}`).px(8).py(3)
       .when(a.focused, (el) => el.bg(t.selected))
+      .when(cur, (el) => el.bg(t.hover).border(1).border_color(t.accent))
       .hover((el) => el.bg(t.hover))
       .on_click(() => run("pane.focus", { pane: a.pane }))
       .on_mouse_down("right", () => openOverlay({
@@ -197,10 +273,13 @@ export default class NodoSidebar extends View {
     if (p.part === "agent-menu") return this.agentMenu(t, p);
     if (p.part === "space-menu") return this.spaceMenu(t, p);
 
-    const rows = this.ordered();
+    const showSpaces = p.part !== "agents", showAgents = p.part !== "spaces";
+    const rows = showSpaces ? this.ordered() : [];
     // Pinned first, otherwise the model's order (space, tab, pane).
-    const ag = [...agents()].sort((x, y) => (y.pinned ? 1 : 0) - (x.pinned ? 1 : 0));
-    setAgentOrder(ag.map((a) => a.address));
+    const ag = showAgents ? [...agents()].sort((x, y) => (y.pinned ? 1 : 0) - (x.pinned ? 1 : 0)) : [];
+    if (showAgents) setAgentOrder(ag.map((a) => a.address));
+    this.items = [...rows.map((r) => `s:${r.s.id}`), ...ag.map((a) => `a:${a.address}`)];
+    if (this.cursor && !this.items.includes(this.cursor)) this.cursor = this.items[0] ?? null;
 
     const spaceRows = v_flex().id("space-rows").flex_1().min_h(0).overflow_y_scrollbar()
       .on_mouse_up("left", (_e, cx) => { if (this.pressed !== null) { this.pressed = null; this.over = null; cx.notify(); } })
@@ -210,9 +289,10 @@ export default class NodoSidebar extends View {
       ? div().px(8).h(22).text_color(t.dim).child("-- none --")
       : v_flex().children(ag.map((a) => this.agentRow(t, a)));
 
-    return root.pb(10)
-      .child(box(t, "box-spaces", "SPACES", `${rows.length}`, spaceRows, 1))
-      .child(box(t, "box-agents", "AGENTS", `${ag.length}`,
-        v_flex().id("agent-rows").flex_1().min_h(0).overflow_y_scrollbar().child(agentRows), 2));
+    return root.when(showAgents, (el) => el.pb(10)).id("nodo-sidebar")
+      .track_focus(this.handle).on_key_down((e, cx) => this.key(e, cx))
+      .when(showSpaces, (el) => el.child(box(t, "box-spaces", "SPACES", `${rows.length}`, spaceRows, 1)))
+      .when(showAgents, (el) => el.child(box(t, "box-agents", "AGENTS", `${ag.length}`,
+        v_flex().id("agent-rows").flex_1().min_h(0).overflow_y_scrollbar().child(agentRows), 2)));
   }
 }

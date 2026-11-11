@@ -68,6 +68,9 @@
     "ctrl-s k": "pane.go:up",
     "ctrl-s l": "pane.go:right"
   },
+  "mod:nodo-sidebar": {
+    "ctrl-s l": "nodo-sidebar.back"
+  },
   "terminal": {
     "cmd-f": "terminal.search",
     "cmd-c": "terminal.copy",

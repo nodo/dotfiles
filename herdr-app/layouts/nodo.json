@@ -25,10 +25,29 @@
           "window_drag": true
         },
         {
-          "id": "sidebar-lists",
+          "id": "sidebar-spaces",
           "type": "block",
           "content": {
-            "mod": "nodo-sidebar"
+            "mod": "nodo-sidebar",
+            "props": {
+              "part": "spaces"
+            }
+          },
+          "size": {
+            "weight": 1
+          }
+        },
+        {
+          "id": "sidebar-agents",
+          "type": "block",
+          "content": {
+            "mod": "nodo-sidebar",
+            "props": {
+              "part": "agents"
+            }
+          },
+          "size": {
+            "weight": 2
           }
         }
       ],
