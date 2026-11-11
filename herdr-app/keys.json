@@ -66,7 +66,16 @@
     "ctrl-s h": "pane.go:left",
     "ctrl-s j": "pane.go:down",
     "ctrl-s k": "pane.go:up",
-    "ctrl-s l": "pane.go:right"
+    "ctrl-s l": "pane.go:right",
+    "ctrl-s 1": "tab.select:1",
+    "ctrl-s 2": "tab.select:2",
+    "ctrl-s 3": "tab.select:3",
+    "ctrl-s 4": "tab.select:4",
+    "ctrl-s 5": "tab.select:5",
+    "ctrl-s 6": "tab.select:6",
+    "ctrl-s 7": "tab.select:7",
+    "ctrl-s 8": "tab.select:8",
+    "ctrl-s 9": "tab.select:9"
   },
   "mod:nodo-sidebar": {
     "ctrl-s l": "nodo-sidebar.back"
