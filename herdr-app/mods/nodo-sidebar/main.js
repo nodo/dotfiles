@@ -5,6 +5,8 @@
 //
 // Spaces: click to switch, drag to reorder, right-click for Herdr's space menu
 // (rename, worktrees, close); git worktree spaces sit under their main checkout.
+// Once another machine is known, spaces sit under a header per machine (this computer
+// first): click a header to fold it, [+] for a new space there.
 // Agents: click to focus, right-click for pin / peek / close; pinned ones come first.
 // Keyboard: each list is a pane for pane.go: ctrl+s h focuses it, ctrl+s j/k move between
 // the two lists. Inside: j/k/g/G move, enter switches/focuses, esc / l / ctrl+s l go back
@@ -12,7 +14,7 @@
 
 import { View, div } from "gpui-kit";
 import { v_flex, h_flex } from "gpui-base";
-import { spaces, agents, panes, theme, settings, run, props, exec, openOverlay, closeOverlay, setAgentOrder, nextCommand, focused, setShared } from "herdr";
+import { spaces, machines, agents, panes, theme, settings, run, props, exec, openOverlay, closeOverlay, setAgentOrder, nextCommand, focused, setShared } from "herdr";
 
 const MARK = { working: "[~]", blocked: "[!]", done: "[*]", idle: "[ ]" };
 const SPIN = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"].map((c) => `[${c}]`);
@@ -76,6 +78,7 @@ export default class NodoSidebar extends View {
     this.git = {}; // placeKey -> { repo, linked } | null (not a repo)
     this.pressed = null; // space id being dragged
     this.over = null; // space id under the pointer while dragging
+    this.folded = new Set(JSON.parse(localStorage.getItem("nodo-sidebar.folded") ?? "[]")); // machine names, "" = local
     this.refreshGit(cx);
     cx.timer.every(GIT_EVERY, (cx) => this.refreshGit(cx));
   }
@@ -202,7 +205,50 @@ export default class NodoSidebar extends View {
         el.child(div().flex_none().text_color(statusColor(t, s.status)).child(MARK[s.status])));
   }
 
+  // Machines besides this computer: any with a layout here or a space in the list.
+  remotes(rows) {
+    return [...new Set([...machines().map((m) => m.name), ...rows.map((r) => r.s.machine)].filter(Boolean))].sort();
+  }
+
+  // ── hoth ───────── 3 [+]   (click: fold; [+]: new space on that machine)
+  machineRow(t, m, count) {
+    const key = m ?? "";
+    const folded = this.folded.has(key);
+    const state = m ? machines().find((k) => k.name === m)?.layout : "ready";
+    const away = state !== "ready";
+    return h_flex().id(`mc-${key || "local"}`).h(22).px(8).gap(6).items_center().text_color(t.dim)
+      .hover((el) => el.bg(t.hover))
+      .on_click((_e, cx) => {
+        folded ? this.folded.delete(key) : this.folded.add(key);
+        localStorage.setItem("nodo-sidebar.folded", JSON.stringify([...this.folded]));
+        cx.notify();
+      })
+      .child(div().flex_none().w(10).child(folded ? "+" : "-"))
+      .child(div().flex_none().max_w(120).truncate().text_color(away ? t.dim : t.muted).child(m ?? "local"))
+      .child(div().flex_1().min_w(0).h(1).bg(t.border))
+      .when(away, (el) => el.child(div().flex_none().child(state === "loading" ? "..." : "away")))
+      .when(!away && folded, (el) => el.child(div().flex_none().child(`${count}`)))
+      .when(!away, (el) => el.child(div().id(`mc-add-${key || "local"}`).flex_none()
+        .hover((s) => s.text_color(t.accent))
+        .on_click((_e, cx) => { cx.stop_propagation(); run("space.new", { machine: key }); })
+        .child("[+]")));
+  }
+
+  // The space rows, under a header per machine once one isn't this computer.
+  spaceList(t, rows) {
+    const remote = this.remotes(rows);
+    if (!remote.length) return rows.map((r) => this.spaceRow(t, r));
+    return [null, ...remote].flatMap((m) => {
+      const mine = rows.filter((r) => (r.s.machine ?? null) === m);
+      const head = this.machineRow(t, m, mine.length);
+      if (this.folded.has(m ?? "")) return [head];
+      return [head, ...(mine.length ? mine.map((r) => this.spaceRow(t, r))
+        : [div().id(`mc-none-${m ?? "local"}`).h(22).px(8).pl(24).text_color(t.dim).child("-- none --")])];
+    });
+  }
+
   agentRow(t, a) {
+    const machine = spaces().find((s) => s.id === a.space)?.machine;
     const mark = div().flex_none().text_color(statusColor(t, a.status));
     const cur = this.cursor === `a:${a.address}` && this.handle?.is_focused();
     return v_flex().id(`ag-${a.address}`).px(8).py(3)
@@ -219,7 +265,7 @@ export default class NodoSidebar extends View {
         .child(div().flex_1().min_w(0).truncate()
           .text_color(a.focused ? t.foreground : t.muted).child((a.program?.name ?? a.app ?? "agent").toLowerCase()))
         .when(a.pinned, (el) => el.child(div().flex_none().text_color(t.accent).child("^")))
-        .child(div().flex_none().text_color(t.dim).child(`${a.space_name}:${a.tab_index}`)))
+        .child(div().flex_none().text_color(t.dim).child(`${machine ? `${machine}/` : ""}${a.space_name}:${a.tab_index}`)))
       .when(!!a.title, (el) => el.child(div().pl(30).truncate().text_size(11).text_color(t.dim).child(a.title)));
   }
 
@@ -278,12 +324,15 @@ export default class NodoSidebar extends View {
     // Pinned first, otherwise the model's order (space, tab, pane).
     const ag = showAgents ? [...agents()].sort((x, y) => (y.pinned ? 1 : 0) - (x.pinned ? 1 : 0)) : [];
     if (showAgents) setAgentOrder(ag.map((a) => a.address));
-    this.items = [...rows.map((r) => `s:${r.s.id}`), ...ag.map((a) => `a:${a.address}`)];
+    // Spaces under a folded machine header aren't drawn, so the keyboard skips them.
+    const grouped = this.remotes(rows).length > 0;
+    const shown = rows.filter((r) => !(grouped && this.folded.has(r.s.machine ?? "")));
+    this.items = [...shown.map((r) => `s:${r.s.id}`), ...ag.map((a) => `a:${a.address}`)];
     if (this.cursor && !this.items.includes(this.cursor)) this.cursor = this.items[0] ?? null;
 
     const spaceRows = v_flex().id("space-rows").flex_1().min_h(0).overflow_y_scrollbar()
       .on_mouse_up("left", (_e, cx) => { if (this.pressed !== null) { this.pressed = null; this.over = null; cx.notify(); } })
-      .children(rows.map((r) => this.spaceRow(t, r)));
+      .children(this.spaceList(t, rows));
 
     const agentRows = ag.length === 0
       ? div().px(8).h(22).text_color(t.dim).child("-- none --")
