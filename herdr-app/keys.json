@@ -62,7 +62,11 @@
     "ctrl-s \"": "pane.split:down",
     "ctrl-s shift-'": "pane.split:down",
     "ctrl-s ,": "tab.rename",
-    "ctrl-s c": "tab.new"
+    "ctrl-s c": "tab.new",
+    "ctrl-s h": "pane.go:left",
+    "ctrl-s j": "pane.go:down",
+    "ctrl-s k": "pane.go:up",
+    "ctrl-s l": "pane.go:right"
   },
   "terminal": {
     "cmd-f": "terminal.search",
