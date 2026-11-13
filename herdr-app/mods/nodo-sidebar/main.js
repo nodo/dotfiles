@@ -270,9 +270,9 @@ export default class NodoSidebar extends View {
         // The agent's icon instead of its name; the name only when the program has no icon.
         .child(icon(a.program, 14, a.focused ? t.foreground : t.muted) ?? div().flex_none().max_w(90).truncate()
           .text_color(a.focused ? t.foreground : t.muted).child((a.program?.name ?? a.app ?? "agent").toLowerCase()))
-        .child(div().flex_1().min_w(0))
+        .child(div().flex_1().min_w(0).truncate().text_color(t.dim).child(`${machine ? `${machine}/` : ""}${a.space_name}`))
         .when(a.pinned, (el) => el.child(div().flex_none().text_color(t.accent).child("^")))
-        .child(div().flex_none().text_color(t.dim).child(`${machine ? `${machine}/` : ""}${a.space_name}:${a.tab_index}`)))
+        .child(div().flex_none().text_color(t.dim).child(`:${a.tab_index}`)))
       .when(!!a.title, (el) => el.child(div().pl(30).truncate().text_size(11).text_color(t.dim).child(a.title)));
   }
 
