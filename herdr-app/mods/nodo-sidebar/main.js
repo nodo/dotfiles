@@ -12,7 +12,7 @@
 // the two lists. Inside: j/k/g/G move, enter switches/focuses, esc / l / ctrl+s l go back
 // to the pane you came from.
 
-import { View, div } from "gpui-kit";
+import { View, div, image, svg } from "gpui-kit";
 import { v_flex, h_flex } from "gpui-base";
 import { spaces, machines, agents, panes, theme, settings, run, props, exec, openOverlay, closeOverlay, setAgentOrder, nextCommand, focused, setShared } from "herdr";
 
@@ -21,6 +21,11 @@ const SPIN = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "�
 const GIT_EVERY = 5000;
 
 const mono = () => settings().font_family ?? "JetBrains Mono";
+// The agent's icon from the app's program table: a one-color glyph or a picture.
+function icon(p, size, color) {
+  if (!p?.icon) return null;
+  return p.tint ? svg(p.icon).size(size).flex_none().text_color(color) : image(p.icon).w(size).h(size).flex_none();
+}
 const statusColor = (t, s) => ({ working: t.working, blocked: t.blocked, done: t.done, idle: t.dim }[s] ?? t.dim);
 
 // Where a space is now: its first terminal's live folder, else where it was made.
@@ -262,8 +267,10 @@ export default class NodoSidebar extends View {
       }))
       .child(h_flex().gap(6).items_center()
         .child(a.status === "working" ? mark.frames(SPIN, 80) : mark.child(MARK[a.status] ?? "[ ]"))
-        .child(div().flex_1().min_w(0).truncate()
+        // The agent's icon instead of its name; the name only when the program has no icon.
+        .child(icon(a.program, 14, a.focused ? t.foreground : t.muted) ?? div().flex_none().max_w(90).truncate()
           .text_color(a.focused ? t.foreground : t.muted).child((a.program?.name ?? a.app ?? "agent").toLowerCase()))
+        .child(div().flex_1().min_w(0))
         .when(a.pinned, (el) => el.child(div().flex_none().text_color(t.accent).child("^")))
         .child(div().flex_none().text_color(t.dim).child(`${machine ? `${machine}/` : ""}${a.space_name}:${a.tab_index}`)))
       .when(!!a.title, (el) => el.child(div().pl(30).truncate().text_size(11).text_color(t.dim).child(a.title)));
